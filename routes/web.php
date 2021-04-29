@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
+});
+
+Route::prefix('lelang')->group(function () {
+    Route::get('/', [Controllers\PelelanganController::class, 'index'])->name('lelang.index');
+    Route::get('/show/{id}', [Controllers\PelelanganController::class, 'show'])->name('lelang.show');
 });

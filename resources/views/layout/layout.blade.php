@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>E-Lang | @yield('title')</title>
 
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="{{asset('template')}}/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="{{asset('template')}}/dist/css/adminlte.min.css">
@@ -33,7 +34,7 @@
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pelelangan</a>
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">Barang dilelang terbuka</a></li>
+              <li><a href="{{route('lelang.index')}}" class="dropdown-item">Barang dilelang</a></li>
               <li><a href="#" class="dropdown-item">Pencarian Barang Dilelang</a></li>
             </ul>
           </li>
@@ -137,8 +138,6 @@
 <script src="{{asset('template')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('template')}}/dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="{{asset('template')}}/dist/js/demo.js"></script>
 @yield('js')
 </body>
 </html>
