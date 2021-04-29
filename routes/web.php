@@ -18,7 +18,12 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::prefix('lelang')->group(function () {
-    Route::get('/', [Controllers\PelelanganController::class, 'index'])->name('lelang.index');
-    Route::get('/show/{id}', [Controllers\PelelanganController::class, 'show'])->name('lelang.show');
+Route::prefix('lelang')->name('lelang.')->group(function () {
+    Route::get('/', [Controllers\PelelanganController::class, 'index'])->name('index');
+    Route::get('/show/{id}', [Controllers\PelelanganController::class, 'show'])->name('show');
+});
+
+Route::prefix('bid')->name('bid.')->group(function () {
+    Route::get('/', [Controllers\BidController::class, 'index'])->name('index');
+    Route::post('/', [Controllers\BidController::class, 'create'])->name('create');
 });
