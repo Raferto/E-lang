@@ -27,3 +27,9 @@ Route::prefix('bid')->name('bid.')->group(function () {
     Route::get('/', [Controllers\BidController::class, 'index'])->name('index');
     Route::post('/', [Controllers\BidController::class, 'create'])->name('create');
 });
+
+Route::prefix('klaim')->name('klaim.')->group(function () {
+    Route::get('/klaim', [Controllers\KlaimController::class, 'index'])->name('index');
+    Route::get('/klaim/{id}', [Controllers\KlaimController::class, 'show'])->name('show');
+    Route::post('/klaim', [Controllers\KlaimController::class, 'create'])->name('create');
+});
