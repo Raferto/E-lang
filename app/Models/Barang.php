@@ -9,4 +9,22 @@ class Barang extends Model
 {
     use HasFactory;
     protected $table = "barang";
+
+    protected $fillable = [
+        'id',
+        'nama',
+        'harga_awal',
+        'photo',
+        'deskripsi',
+        'lelang_start',
+        'lelang_finish',
+        'user_id',
+        'admin_id',
+        'status'
+    ];
+
+    public function barang() {
+        return $this->belongsTo(Barang::class, 'barang_id', 'id');
+    }
+
 }

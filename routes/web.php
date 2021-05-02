@@ -36,5 +36,5 @@ Route::prefix('klaim')->name('klaim.')->group(function () {
 Route::prefix('pengajuan')->name('pengajuan.')->group(function () {
     Route::post('/', [Controllers\PengajuanController::class, 'create'])->name('create');
     Route::get('/', [Controllers\PengajuanController::class, 'index'])->name('index');
-    Route::get('/show/id', [Controllers\PengajuanController::class, 'show'])->name('show');
+    Route::get('/show/{id}', [Controllers\PengajuanController::class, 'show'])->name('show');
 });
