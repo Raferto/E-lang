@@ -38,15 +38,7 @@
               <li><a href="#" class="dropdown-item">Pencarian Barang Dilelang</a></li>
             </ul>
           </li>
-          <li class="nav-item dropdown">
-            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Barangku</a>
-            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-              <li><a href="#" class="dropdown-item">Pengajuan Barang</a></li>
-              <li><a href="#" class="dropdown-item">Barang Berhasil Ditawar</a></li>
-              <li><a href="#" class="dropdown-item">Barang Proses Ditawar</a></li>
-              <li><a href="#" class="dropdown-item">Barang Diajukan</a></li>
-            </ul>
-          </li>
+            <a href="{{route('barangku.index')}}"class="nav-link">Barangku</a>
         </ul>
 
         <!-- SEARCH FORM -->
