@@ -33,6 +33,7 @@ Route::prefix('klaim')->name('klaim.')->group(function () {
     Route::get('/show/{id}', [Controllers\KlaimController::class, 'show'])->name('show');
     Route::post('/', [Controllers\KlaimController::class, 'create'])->name('create');
 });
+
 Route::prefix('barangku')->name('barangku.')->group(function () {
     Route::post('/', [Controllers\barangkuController::class, 'create'])->name('create');
     Route::get('/', [Controllers\barangkuController::class, 'index'])->name('index');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Barang;
 
 class BarangkuController extends Controller
@@ -28,7 +29,7 @@ class BarangkuController extends Controller
             $barang->save();
 
             return redirect()
-            ->route('bid.index');
+            ->route('barangku.index');
         } catch (\Exception $e) {
             dd($e->getMessage());
         }
@@ -39,7 +40,7 @@ class BarangkuController extends Controller
         ->where('id', $id)
         ->first();
 
-        return view('barang.show')
+        return view('barangku.show')
         ->with('barang', $barang);
     }
 

@@ -13,9 +13,9 @@
 @endsection
 
 @section('main')
-
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <a href="{{route('barangku.create')}}" class="btn btn-primary" style="position: absolute; right: 0;">Create</a>
             <p>Page {{ $barang->currentPage() }} of {{ $barang->lastPage() }}</p>
             <ul class="list-group">
                 @foreach ($barang as $b)
