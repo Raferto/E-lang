@@ -38,7 +38,7 @@ class BarangkuController extends Controller
             $barang->harga_awal = $request->harga_awal;
             $barang->deskripsi = $request->deskripsi;
             $barang->lelang_start = $request->lelang_start;
-            $barang->lelang_finish = $request->lelang_finish;
+            $barang->lelang_finished = $request->lelang_finished;
             $barang->user_id = 1;
             $barang->status = "new";
 

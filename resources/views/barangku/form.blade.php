@@ -33,8 +33,8 @@
 			</div>
 
 			<div class="form-group">
-				<label for="lelang_finish">Selesai Lelang</label>
-				<input type="datetime-local" name="lelang_finish" class="form-control" />
+				<label for="lelang_finished">Selesai Lelang</label>
+				<input type="datetime-local" name="lelang_finished" class="form-control" />
 			</div>
 
 			<button type="submit" class="btn btn-primary btn-block">
