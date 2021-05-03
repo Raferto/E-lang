@@ -17,7 +17,7 @@ class Barang extends Model
         'photo',
         'deskripsi',
         'lelang_start',
-        'lelang_finish',
+        'lelang_finished',
         'user_id',
         'admin_id',
         'status'

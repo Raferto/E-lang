@@ -15,13 +15,21 @@ class CreateTableBarang extends Migration
     {
         Schema::create('barang', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('admin_id')->nullable();
+            $table->unsignedBigInteger('penawaran_id')->nullable();
+
             $table->text('nama');
+            $table->text('harga_awal');
             $table->text('photo');
             $table->text('deskripsi');
-            $table->string('status');
+            $table->string('status')->default('new');
             $table->timestamp('lelang_start')->nullable();
             $table->timestamp('lelang_finished')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('admin_id')->references('id')->on('admin');
         });
     }
 

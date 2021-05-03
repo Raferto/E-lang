@@ -15,9 +15,10 @@ class CreateTablePenawaranBarang extends Migration
     {
         Schema::create('penawaran_barang', function (Blueprint $table) {
             $table->id();
-            $table->decimal('harga', 9, 3);
             $table->unsignedBigInteger('barang_id');
             $table->unsignedBigInteger('user_id');
+
+            $table->decimal('harga', 15, 3);
             $table->timestamps();
 
             $table->foreign('barang_id')->references('id')->on('barang');

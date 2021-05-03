@@ -13,15 +13,15 @@
 @endsection
 
 @section('main')
-
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <a href="{{route('barangku.form')}}" class="btn btn-primary" style="position: absolute; right: 0;">Create</a>
             <p>Page {{ $barang->currentPage() }} of {{ $barang->lastPage() }}</p>
             <ul class="list-group">
                 @foreach ($barang as $b)
                     <li class="list-group-item d-flex justify-content-between">
                         <div>
-                            <img src="{{$b->photo}}" class="img img-fluid" style="width:10%;margin-right:5%;"/>
+                            <img src="data_files/photo_barang/{{$b->photo}}" class="img img-fluid" style="width:10%;margin-right:5%;"/>
                             {{ $b->nama }}
                         </div>
                         <a href="{{route('barangku.show', ['id' => $b->id])}}" class="btn btn-primary">
