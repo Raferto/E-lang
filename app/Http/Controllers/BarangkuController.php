@@ -40,6 +40,7 @@ class BarangkuController extends Controller
             $barang->lelang_start = $request->lelang_start;
             $barang->lelang_finish = $request->lelang_finish;
             $barang->user_id = 1;
+            $barang->status = "new";
 
             $photo = $request->file('photo');
             $photo_ext = $photo->getClientOriginalExtension();
