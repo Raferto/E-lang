@@ -24,6 +24,10 @@ class BidController extends Controller
             $penawaran_barang->user_id = 1;
             $penawaran_barang->save();
 
+            DB::table('barang')
+            ->where('id', $request->barang_id)
+            ->update(['harga_tertinggi' => $request->harga]);
+
             return redirect()
             ->route('bid.index');
         } catch (\Exception $e) {
