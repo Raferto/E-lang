@@ -25,7 +25,7 @@
 
 			<div class="form-group">
 				<label for="photo">Photo</label> <br>
-        <div class="product-image" ><img src="/public/data_files/photo_barang/photo_barang[user_id]_[barang_id].png" alt="Product Image"></div>
+        <div class="product-image" ><img src="{{asset('data_files/photo_barang/' . $barang->photo) }}" alt="Product Image"></div>
 				<input type="file" name="photo" />
 			</div>
 
