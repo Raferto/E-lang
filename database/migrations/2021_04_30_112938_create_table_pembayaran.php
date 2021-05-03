@@ -16,17 +16,19 @@ class CreateTablePembayaran extends Migration
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('penawaran_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('admin_id')->nullable();;
 
-            $table->string('status');
             $table->text('bukti_pembayaran');
-            $table->timestamp('deadline_pembayaran');
+            $table->string('status')->default('new');;
+            $table->timestamp('deadline');
 
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('penawaran_id')->references('id')->on('penawaran_barang');
+            $table->foreign('admin_id')->references('id')->on('penawaran_barang');
         });
     }
 

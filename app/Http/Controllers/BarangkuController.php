@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Barang;
+use Illuminate\Support\Str;
 
 class BarangkuController extends Controller
 {
@@ -40,11 +41,10 @@ class BarangkuController extends Controller
             $barang->lelang_start = $request->lelang_start;
             $barang->lelang_finished = $request->lelang_finished;
             $barang->user_id = 1;
-            $barang->status = "new";
 
             $photo = $request->file('photo');
             $photo_ext = $photo->getClientOriginalExtension();
-            $target_name = 'photo_barang' . '[user_id]_' . '[barang_id].'. $photo_ext; // ganti sesuai dibutuhin
+            $target_name = 'photo_barang' . '[user_id]_' . ((string) Str::uuid()) . '.' . $photo_ext; // ganti sesuai dibutuhin
             $target_path = 'data_files/photo_barang';
             $photo->move($target_path, $target_name);
 
