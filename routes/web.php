@@ -38,3 +38,7 @@ Route::prefix('barangku')->name('barangku.')->group(function () {
     Route::get('/', [Controllers\barangkuController::class, 'index'])->name('index');
     Route::get('/show/{id}', [Controllers\barangkuController::class, 'show'])->name('show');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

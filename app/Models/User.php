@@ -18,6 +18,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'nama',
+        'email',
         'nomor_telpon',
         'alamat',
         'deskripsi',
@@ -46,7 +47,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function pembayarans() {
+    public function pembayarans()
+    {
         return $this->hasMany(Pembayaran::class, 'user_id', 'id');
     }
 }
