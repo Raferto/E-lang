@@ -45,8 +45,8 @@
 			</div>
 
 			<div class="form-group">
-				<label for="lelang_finish">Selesai Lelang</label>
-				<input type="datetime-local" name="lelang_finish" class="form-control" placeholder="{{$barang->lelang_finish}}"/>
+				<label for="lelang_finished">Selesai Lelang</label>
+				<input type="datetime-local" name="lelang_finished" class="form-control" placeholder="{{$barang->lelang_finished}}"/>
 			</div>
         <!-- /.card-body -->
       </div>
