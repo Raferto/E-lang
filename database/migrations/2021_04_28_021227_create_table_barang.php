@@ -21,6 +21,7 @@ class CreateTableBarang extends Migration
             $table->string('status');
             $table->timestamp('lelang_start')->nullable();
             $table->timestamp('lelang_finished')->nullable();
+            $table->unsignedFloat('harga_tertinggi')->default(0);
             $table->timestamps();
         });
     }

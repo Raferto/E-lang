@@ -21,13 +21,13 @@
               <div class="col-12">
                 <img src="{{ $barang->photo }}" class="product-image" alt="Product Image">
               </div>
-              <div class="col-12 product-image-thumbs">
+              <!-- <div class="col-12 product-image-thumbs">
                 <div class="product-image-thumb active"><img src="{{ $barang->photo }}" alt="Product Image"></div>
                 <div class="product-image-thumb" ><img src="{{ $barang->photo }}" alt="Product Image"></div>
                 <div class="product-image-thumb" ><img src="{{ $barang->photo }}" alt="Product Image"></div>
                 <div class="product-image-thumb" ><img src="{{ $barang->photo }}" alt="Product Image"></div>
                 <div class="product-image-thumb" ><img src="{{ $barang->photo }}" alt="Product Image"></div>
-              </div>
+              </div> -->
             </div>
             <div class="col-12 col-sm-6">
               <h3 class="my-3">{{$barang->nama}}</h3>
@@ -36,7 +36,7 @@
               <hr>
               <div class="bg-gray py-2 px-3 mt-4">
                 <h2 class="mb-0">
-                  Penawaran Tetinggi : Rp 80.00
+                  Penawaran Tetinggi : {{$barang->harga_tertinggi}}
                 </h2>
               </div>
 
