@@ -40,3 +40,7 @@ Route::prefix('barangku')->name('barangku.')->group(function () {
     Route::get('/', [Controllers\BarangkuController::class, 'index'])->name('index');
     Route::get('/show/{id}', [Controllers\BarangkuController::class, 'show'])->name('show');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
