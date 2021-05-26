@@ -13,7 +13,6 @@ class PelelanganController extends Controller
         $barangs = DB::table('barang')
         ->where('lelang_start', '<', $now)
         ->where('lelang_finished', '>', $now)
-        // ->where('status', 'open')
         ->paginate(5);
 
         return view('lelang.index')

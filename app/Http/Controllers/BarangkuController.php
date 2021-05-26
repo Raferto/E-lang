@@ -49,7 +49,7 @@ class BarangkuController extends Controller
             $photo->move($target_path, $target_name);
 
             $barang->photo = $target_name;
-            
+
             $barang->save();
 
             return redirect()

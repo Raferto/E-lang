@@ -19,7 +19,7 @@
             <div class="col-12 col-sm-6">
               <h3 class="d-inline-block d-sm-none">{{$barang->nama}}</h3>
               <div class="col-12">
-                <img src="{{ $barang->photo }}" class="product-image" alt="Product Image">
+                <img src="{{asset($barang->photo) }}" class="product-image" alt="Product Image">
               </div>
               <!-- <div class="col-12 product-image-thumbs">
                 <div class="product-image-thumb active"><img src="{{ $barang->photo }}" alt="Product Image"></div>
