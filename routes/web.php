@@ -16,7 +16,7 @@ use App\Http\Controllers;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Route::prefix('lelang')->name('lelang.')->group(function () {
     Route::get('/', [Controllers\PelelanganController::class, 'index'])->name('index');
@@ -41,6 +41,8 @@ Route::prefix('barangku')->name('barangku.')->group(function () {
     Route::get('/show/{id}', [Controllers\BarangkuController::class, 'show'])->name('show');
 });
 
-Auth::routes();
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+require __DIR__.'/auth.php';
