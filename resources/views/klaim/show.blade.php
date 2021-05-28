@@ -36,6 +36,17 @@
                 <h3 class="my-3">{{$penawaran->nama}}</h3>
                 <p>{{$penawaran->deskripsi}}</p>
                 <p>Lelang selesai pada: {{$penawaran->lelang_finished}}</p>
+                <p>Status pembayaran:
+                    @if($pembayaran == null)
+                    <span class="badge badge-secondary">Belum dibayar</span>
+                    @elseif($pembayaran->status == 'menunggu verifikasi')
+                    <span class="badge badge-primary">Sudah dibayar - Menunggu verifikasi</span>
+                    @elseif($pembayaran->status == 'sudah dibayar')
+                    <span class="badge badge-success">Pembayaran telah diterima</span>
+                    @elseif($pembayaran->status == 'ditolak')
+                    <span class="badge badge-danger">Pembayaran ditolak</span>
+                    @endif
+                </p>
 
                 <hr>
                 <div class="bg-primary py-2 px-3 mt-4">
@@ -44,18 +55,20 @@
                     </h2>
                 </div>
 
+                @if($pembayaran == null ||$pembayaran->status == 'ditolak' )
+
                 <div class="mt-4">
                     <form class="" action="{{route('klaim.create')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-12">
                                 <input type="hidden" name="penawaran_id" value="{{$penawaran->id}}">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
+                                <div class="input-group" style="min-width: 100px">
+                                    {{-- <div class="input-group-prepend">
                                         <button type="button" id="input_file_bukti"><i class="fas fa-cloud-upload-alt"
                                                 aria-hidden="true"></i>
                                         </button>
-                                    </div>
+                                    </div> --}}
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" name="bukti_pembayaran" id="bukti_pembayaran"
                                             aria-describedby="input_file_bukti">
@@ -63,14 +76,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-default btn-lg btn-flat">
+                            <div class="col-4 mt-3">
+                                <button type="submit" class="btn btn-primary btn-md btn-flat">
                                     Bayar
                                 </button>
                             </div>
                         </div>
                     </form>
                 </div>
+                @endif
             </div>
         </div>
     </div>
