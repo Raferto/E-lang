@@ -19,12 +19,18 @@
             <p>Page {{ $penawaran_barangs->currentPage() }} of {{ $penawaran_barangs->lastPage() }}</p>
             <ul class="list-group">
                 @foreach ($penawaran_barangs as $penawaran_barang)
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <img src="{{$penawaran_barang->barang->photo}}" class="img img-fluid" style="width:10%;margin-right:5%;"/>
-                            {{ $penawaran_barang->barang->nama }}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="{{$penawaran_barang->barang->photo}}" class="img img-fluid" style="width: 10vw; margin-right:5%;"/>
+                            </div>
+                            <div class="col-7 d-flex align-items-center">
+                                {{ $penawaran_barang->barang->nama }}
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                {{ $penawaran_barang->harga }}
+                            </div>
                         </div>
-                        {{ $penawaran_barang->harga }}
                     </li>
                 @endforeach
             </ul>

@@ -11,8 +11,8 @@ class PelelanganController extends Controller
     public function index() {
         $now = Carbon::now();
         $barangs = DB::table('barang')
-        ->where('lelang_start', '<', $now)
-        ->where('lelang_finished', '>', $now)
+        // ->where('lelang_start', '<', $now)
+        // ->where('lelang_finished', '>', $now)
         ->paginate(5);
 
         return view('lelang.index')

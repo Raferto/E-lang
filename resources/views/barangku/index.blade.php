@@ -21,7 +21,7 @@
                 @foreach ($barang as $b)
                     <li class="list-group-item d-flex justify-content-between">
                         <div>
-                            <img src="data_files/photo_barang/{{$b->photo}}" class="img img-fluid" style="width:10%;margin-right:5%;"/>
+                            <img src="{{$b->photo}}" class="img img-fluid" style="width:10%;margin-right:5%;"/>
                             {{ $b->nama }}
                         </div>
                         <a href="{{route('barangku.show', ['id' => $b->id])}}" class="btn btn-primary">

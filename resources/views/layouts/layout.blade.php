@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="{{asset('template-admin-lte')}}/dist/css/adminlte.min.css">
     @yield('css')
 </head>
+@php
+$is_authenticated = \App\Libraries\AuthHelper::check();
+@endphp
 
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
@@ -41,11 +44,23 @@
                                 aria-expanded="false" class="nav-link dropdown-toggle">Pelelangan</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                                 <li><a href="{{route('lelang.index')}}" class="dropdown-item">Barang dilelang</a></li>
-                                <li><a href="{{route('klaim.index')}}" class="dropdown-item">Klaim Barang</a></li>
                                 <li><a href="#" class="dropdown-item">Pencarian Barang Dilelang</a></li>
+                                @auth
+                                <li><a href="{{route('klaim.index')}}" class="dropdown-item">Klaim Barang</a></li>
+                                <li><a href="{{route('bid.index')}}" class="dropdown-item">Barang Ditawar</a></li>
+                                @endauth
+                                @if(Auth::guard("admin")->check())
+                                <li><a href="#" class="dropdown-item">Cek Barang</a></li>
+                                <li><a href="#" class="dropdown-item">Cek Pembayaran</a></li>
+                                @endif
                             </ul>
                         </li>
+                        @auth
                         <a href="{{route('barangku.index')}}" class="nav-link">Barangku</a>
+                        @endauth
+                        @if(Auth::guard('admin')->check())
+                        <a href="#" class="nav-link">Verifikasi Akun</a>
+                        @endif
                     </ul>
 
                     <!-- SEARCH FORM -->
@@ -64,7 +79,7 @@
 
                 <!-- Right navbar links -->
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    @guest
+                    @if (!$is_authenticated)
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('login')}}" role="button">
                             <i class="fas fa-sign-in-alt"></i>
@@ -77,7 +92,7 @@
                             Register
                         </a>
                     </li>
-                    @endguest
+                    @endif
 
                     @if (\App\Libraries\AuthHelper::check())
                     <li class="nav-item dropdown">
@@ -85,13 +100,23 @@
                             aria-expanded="false"
                             class="nav-link dropdown-toggle">{{\App\Libraries\AuthHelper::user()->nama}}</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                            <li>
+                                <a href="#" class="dropdown-item">
+                                    Profil
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="dropdown-item">
+                                    Status Verifikasi
+                                </a>
+                            </li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <li>
-                                    <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                                    <a href="#" class="dropdown-item" onclick="event.preventDefault();
                                             this.closest('form').submit();">
                                         {{ __('Log Out') }}
-                                    </x-dropdown-link>
+                                    </a>
                                 </li>
                             </form>
                         </ul>

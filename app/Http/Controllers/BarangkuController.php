@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Barang;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class BarangkuController extends Controller
 {
@@ -43,13 +45,12 @@ class BarangkuController extends Controller
             $barang->user_id = 1;
 
             $photo = $request->file('photo');
+            $content = file_get_contents($photo->getRealPath());
             $photo_ext = $photo->getClientOriginalExtension();
-            $target_name = 'photo_barang' . '[user_id]_' . ((string) Str::uuid()) . '.' . $photo_ext; // ganti sesuai dibutuhin
-            $target_path = 'data_files/photo_barang';
-            $photo->move($target_path, $target_name);
+            $file_name = Auth::id() . ((string) Str::uuid()) . '.' . $photo_ext;
+            Storage::put('public/' . $file_name, $content);
 
-            $barang->photo = $target_name;
-
+            $barang->photo = asset('storage/' . $file_name);
             $barang->save();
 
             return redirect()

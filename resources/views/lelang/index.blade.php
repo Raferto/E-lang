@@ -19,14 +19,20 @@
             <p>Page {{ $barangs->currentPage() }} of {{ $barangs->lastPage() }}</p>
             <ul class="list-group">
                 @foreach ($barangs as $barang)
-                    <li class="list-group-item d-flex justify-content-between">
-                        <div>
-                            <img src="data_files/photo_barang/{{$barang->photo}}" class="img img-fluid" style="width:10%;margin-right:5%;"/>
-                            {{ $barang->nama }}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="{{$barang->photo}}" class="img img-fluid" style="width: 10vw; margin-right:5%;"/>
+                            </div>
+                            <div class="col-7 d-flex align-items-center">
+                                {{ $barang->nama }}
+                            </div>
+                            <div class="col-2 d-flex align-items-center">
+                                <a href="{{route('lelang.show', ['id' => $barang->id])}}" class="btn btn-primary">
+                                    Show
+                                </a>
+                            </div>
                         </div>
-                        <a href="{{route('lelang.show', ['id' => $barang->id])}}" class="btn btn-primary">
-                            Show
-                        </a>
                     </li>
                 @endforeach
             </ul>
