@@ -7,8 +7,7 @@
     <title>E-Lang | @yield('title')</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{asset('template-admin-lte')}}/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="{{asset('template-admin-lte')}}/dist/css/adminlte.min.css">
     @yield('css')
@@ -27,9 +26,7 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                     <span class="brand-text font-weight-light">E-Lang</span>
                 </a>
 
-                <button class="navbar-toggler order-1" type="button" data-toggle="collapse"
-                    data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
-                    aria-label="Toggle navigation">
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -40,8 +37,7 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                             <a href="/" class="nav-link">Home</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false" class="nav-link dropdown-toggle">Pelelangan</a>
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pelelangan</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                                 <li><a href="{{route('lelang.index')}}" class="dropdown-item">Barang dilelang</a></li>
                                 <li><a href="#" class="dropdown-item">Pencarian Barang Dilelang</a></li>
@@ -64,10 +60,9 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                     </ul>
 
                     <!-- SEARCH FORM -->
-                    <form class="form-inline ml-0 ml-md-3">
+                    <form class="form-inline ml-0 ml-md-3" action="{{ route('lelang.search') }}" method="GET">
                         <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" type="search" placeholder="Search"
-                                aria-label="Search">
+                            <input class="form-control form-control-navbar" name="search" type="search" placeholder="Search" aria-label="Search" value="{{ isset($katkun) ? $katkun : old('search') }}">
                             <div class="input-group-append">
                                 <button class="btn btn-navbar" type="submit">
                                     <i class="fas fa-search"></i>
@@ -96,9 +91,7 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
 
                     @if (\App\Libraries\AuthHelper::check())
                     <li class="nav-item dropdown">
-                        <a id="dropdownSubMenu3" href="#" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false"
-                            class="nav-link dropdown-toggle">{{\App\Libraries\AuthHelper::user()->nama}}</a>
+                        <a id="dropdownSubMenu3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{\App\Libraries\AuthHelper::user()->nama}}</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             <li>
                                 <a href="#" class="dropdown-item">
@@ -166,8 +159,7 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                         <input id="email" class="form-control login" type="text" name="email" placeholder="Email.." />
                     </div>
                     <div style="margin: 10px;">
-                        <input id="password" class="form-control login" type="password" name="password"
-                            placeholder="Password.." />
+                        <input id="password" class="form-control login" type="password" name="password" placeholder="Password.." />
                     </div>
                     <div style="margin: 10px;">
                         <input class="btn btn-primary" type="submit" name="submit" value="login" />

@@ -20,6 +20,7 @@ Route::get('/', function () {
 
 Route::prefix('lelang')->name('lelang.')->group(function () {
     Route::get('/', [Controllers\PelelanganController::class, 'index'])->name('index');
+    Route::get('/search', [Controllers\PelelanganController::class, 'search'])->name('search');
     Route::get('/show/{id}', [Controllers\PelelanganController::class, 'show'])->name('show');
 });
 
@@ -45,4 +46,4 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
