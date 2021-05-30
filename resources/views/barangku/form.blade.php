@@ -25,7 +25,7 @@
 
 			<div class="form-group">
 				<label for="harga_awal">Harga Awal</label><small class="text-danger">*</small>
-				<input type="text" name="harga_awal" class="form-control" value="{{ old('harga_awal') }}"/>
+				<input type="number" name="harga_awal" class="form-control" value="{{ old('harga_awal') }}"/>
 				@if ($errors->has('harga_awal'))
 					<br><span class="text-danger">{{ $errors->first('harga_awal') }}</span>
                 @endif
@@ -41,7 +41,7 @@
 
 			<div class="form-group">
 				<label for="lelang_start">Mulai Lelang</label><small class="text-danger">*</small>
-				<input type="datetime-local" name="lelang_start" class="form-control"/>
+				<input type="datetime-local" name="lelang_start" class="form-control" value="{{old('lelang_start')}}"/>
 				@if ($errors->has('lelang_start'))
 					<br><span class="text-danger">{{ $errors->first('lelang_start') }}</span>
                 @endif
