@@ -33,6 +33,7 @@
                 </h2>
               </div>
 
+              @auth
               <div class="mt-4">
                 <form class="" action="{{route('bid.create')}}" method="POST">
                     @csrf
@@ -53,6 +54,7 @@
                     </div>
                 </form>
               </div>
+              @endauth
             </div>
           </div>
         </div>
