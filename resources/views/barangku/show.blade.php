@@ -15,38 +15,38 @@
 @section('main')
       <div class="form-group">
 				<label for="nama">Status</label>
-				<input type="text" name="status" class="form-control" placeholder="{{$barang->status}}" readonly />
+				<input type="text" name="status" class="form-control" value="{{$barang->status}}" readonly />
 			</div>
 
       <div class="form-group">
 				<label for="nama">Name</label>
-				<input type="text" name="nama" class="form-control" placeholder="{{$barang->nama}}" />
+				<input type="text" name="nama" class="form-control" value="{{$barang->nama}}" />
 			</div>
 
 			<div class="form-group">
 				<label for="photo">Photo</label> <br>
-		        <div class="product-image" ><img src="{{asset('data_files/photo_barang/' . $barang->photo) }}" alt="Product Image"></div><br>
+		        <div class="product-image" ><img src="{{$barang->photo}}" alt="Product Image"></div><br>
 				<input type="file" name="photo" />
 			</div>
 
 			<div class="form-group">
 				<label for="harga_awal">Harga Awal</label>
-				<input type="number" name="harga_awal" class="form-control" placeholder="{{$barang->harga_awal}}"/>
+				<input type="number" name="harga_awal" class="form-control" value="{{$barang->harga_awal}}"/>
 			</div>
 
 			<div class="form-group">
 				<label for="deskripsi">Deskripsi</label>
-				<input type="text" name="deskripsi" class="form-control" placeholder="{{$barang->deskripsi}}"/>
+				<input type="text" name="deskripsi" class="form-control" value="{{$barang->deskripsi}}"/>
 			</div>
 
 			<div class="form-group">
 				<label for="lelang_start">Mulai Lelang</label>
-				<input type="datetime-local" name="lelang_start" class="form-control" placeholder="{{$barang->lelang_start}}"/>
+				<input type="datetime-local" name="lelang_start" class="form-control" value="{{$barang->lelang_start}}"/>
 			</div>
 
 			<div class="form-group">
 				<label for="lelang_finished">Selesai Lelang</label>
-				<input type="datetime-local" name="lelang_finished" class="form-control" placeholder="{{$barang->lelang_finished}}"/>
+				<input type="datetime-local" name="lelang_finished" class="form-control" value="{{$barang->lelang_finished}}"/>
 			</div>
         <!-- /.card-body -->
       </div>

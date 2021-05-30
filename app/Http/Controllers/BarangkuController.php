@@ -49,11 +49,12 @@ class BarangkuController extends Controller
 
             // photo process
             $photo = $request->file('photo');
+            $content = file_get_contents($photo->getRealPath());
             $photo_ext = $photo->getClientOriginalExtension();
-            $target_name = 'barang_' . $user_id . '_' . ((string) Str::uuid()) . '.' . $photo_ext;
-            $photo->move('data_files/photo_barang', $target_name);
+            $file_name = Auth::id() . ((string) Str::uuid()) . '.' . $photo_ext;
+            Storage::put('public/barangku/' . $file_name, $content);
 
-            $barang->photo = $target_name;
+            $barang->photo = asset('storage/barangku/' . $file_name);
             $barang->save();
 
             return redirect()

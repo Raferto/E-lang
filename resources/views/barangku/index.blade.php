@@ -19,15 +19,13 @@
             <p>Page {{ $barang->currentPage() }} of {{ $barang->lastPage() }}</p>
             <ul class="list-group">
                 @foreach ($barang as $b)
-                    <li class="list-group-item d-flex justify-content-between">
+                    <a href="{{route('barangku.show', ['id' => $b->id])}}" >
+                    <li class="list-group-item d-flex justify-content-between"  >
                         <div>
-                            <img src="{{$b->photo}}" class="img img-fluid" style="width:10%;margin-right:5%;"/>
-                            {{ $b->nama }}
+                            <img src="{{$b->photo}}" class="img img-fluid" style="width:50px; display:inline;"/> {{ $b->nama }}
                         </div>
-                        <a href="{{route('barangku.show', ['id' => $b->id])}}" class="btn btn-primary">
-                            Show
-                        </a>
                     </li>
+                    <a>
                 @endforeach
             </ul>
             <p>
