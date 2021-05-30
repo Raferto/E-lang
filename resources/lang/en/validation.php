@@ -140,7 +140,7 @@ return [
             'image' => '* Ekstensi foto harus jpeg, png, atau jpg',
         ],
         'harga_awal' => [
-            'numeric' => '* harga awal tidak valid',
+            'gt' => '* harga awal tidak valid',
         ],
         'lelang_start' => [
             'required' => '* Waktu mulai lelang harus diisi',
