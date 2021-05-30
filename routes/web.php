@@ -31,12 +31,12 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('klaim')->name('klaim.')->group(function () {
-        Route::get('', [Controllers\KlaimController::class, 'index'])->name('index');
+        Route::get('/', [Controllers\KlaimController::class, 'index'])->name('index');
         Route::get('/show/{id}', [Controllers\KlaimController::class, 'show'])->name('show');
         Route::post('/', [Controllers\KlaimController::class, 'create'])->name('create');
     });
 
-    Route::prefix('barangku')->name('barangku.')->middleware('auth')->group(function () {
+    Route::prefix('barangku')->name('barangku.')->group(function () {
         Route::get('/form', [Controllers\BarangkuController::class, 'form'])->name('form');
         Route::post('/form', [Controllers\BarangkuController::class, 'create'])->name('create');
         Route::get('/', [Controllers\BarangkuController::class, 'index'])->name('index');
@@ -44,8 +44,21 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware(['auth:admin'])->group(function () {
+    Route::prefix('user-verification')->name('user-verification.')->group(function () {
+        Route::get('/', [Controllers\Admin\UserVerificationController::class, 'index'])->name('index');
+        Route::put('/', [Controllers\Admin\UserVerificationController::class, 'edit'])->name('edit');
+    });
+
+    Route::prefix('pembayaran')->name('pembayaran.')->group(function () {
+        Route::get('/', [Controllers\Admin\PembayaranController::class, 'index'])->name('index');
+        Route::put('/', [Controllers\Admin\PembayaranController::class, 'edit'])->name('edit');
+    });
+
+    Route::prefix('lelang')->name('lelang.')->group(function () {
+        Route::get('/verif', [Controllers\Admin\PelelanganController::class, 'index'])->name('index');
+        Route::put('/verif', [Controllers\Admin\PelelanganController::class, 'edit'])->name('edit');
+    });
+});
 
 require __DIR__ . '/auth.php';
