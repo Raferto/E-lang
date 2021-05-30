@@ -35,7 +35,7 @@ Route::prefix('klaim')->name('klaim.')->group(function () {
     Route::post('/', [Controllers\KlaimController::class, 'create'])->name('create');
 });
 
-Route::prefix('barangku')->name('barangku.')->group(function () {
+Route::prefix('barangku')->name('barangku.')->middleware('auth')->group(function () {
     Route::get('/form', [Controllers\BarangkuController::class, 'form'])->name('form');
     Route::post('/form', [Controllers\BarangkuController::class, 'create'])->name('create');
     Route::get('/', [Controllers\BarangkuController::class, 'index'])->name('index');

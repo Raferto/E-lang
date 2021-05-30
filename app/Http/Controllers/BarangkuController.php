@@ -8,6 +8,7 @@ use App\Models\Barang;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreBarang;
 
 class BarangkuController extends Controller
 {
@@ -31,10 +32,12 @@ class BarangkuController extends Controller
         return view('barangku.form');
     }
 
-    // public function create(Request $request, $user_id){
-        public function create(Request $request){
-            // dd($request->all());
+        public function create(StoreBarang $request){
         try {
+            $user_id = Auth::user()->id;
+            
+            $input = $request->all();
+
             $barang = new Barang;
 
             $barang->nama = $request->nama;
@@ -42,15 +45,15 @@ class BarangkuController extends Controller
             $barang->deskripsi = $request->deskripsi;
             $barang->lelang_start = $request->lelang_start;
             $barang->lelang_finished = $request->lelang_finished;
-            $barang->user_id = 1;
+            $barang->user_id = $user_id;
 
+            // photo process
             $photo = $request->file('photo');
-            $content = file_get_contents($photo->getRealPath());
             $photo_ext = $photo->getClientOriginalExtension();
-            $file_name = Auth::id() . ((string) Str::uuid()) . '.' . $photo_ext;
-            Storage::put('public/' . $file_name, $content);
+            $target_name = 'barang_' . $user_id . '_' . ((string) Str::uuid()) . '.' . $photo_ext;
+            $photo->move('data_files/photo_barang', $target_name);
 
-            $barang->photo = asset('storage/' . $file_name);
+            $barang->photo = $target_name;
             $barang->save();
 
             return redirect()
