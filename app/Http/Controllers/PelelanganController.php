@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Search;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -20,7 +21,7 @@ class PelelanganController extends Controller
             ->with('barangs', $barangs);
     }
 
-    public function search(Request $request)
+    public function search(Search $request)
     {
         $search = $request->search;
         $now = Carbon::now();

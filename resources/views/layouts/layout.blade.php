@@ -67,6 +67,9 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                                 <button class="btn btn-navbar" type="submit">
                                     <i class="fas fa-search"></i>
                                 </button>
+                                @if($errors->any())
+                                <a class="text-danger">{{ $errors->first() }}</a>
+                                @endif
                             </div>
                         </div>
                     </form>
