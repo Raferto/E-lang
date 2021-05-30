@@ -22,7 +22,7 @@
                     <a href="{{route('barangku.show', ['id' => $b->id])}}" >
                     <li class="list-group-item d-flex justify-content-between"  >
                         <div>
-                            <img src="{{$b->photo}}" class="img img-fluid" style="width:50px; display:inline;"/> {{ $b->nama }}
+                            <img src="{{$b->photo}}" class="img img-fluid" style="width:10vw; display:inline;"/> {{ $b->nama }}
                         </div>
                     </li>
                     <a>
