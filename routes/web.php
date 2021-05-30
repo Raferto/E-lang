@@ -55,7 +55,7 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::put('/', [Controllers\Admin\PembayaranController::class, 'edit'])->name('edit');
     });
 
-    Route::prefix('lelang')->name('lelang.')->group(function () {
+    Route::prefix('lelang-verif')->name('lelang-verif.')->group(function () {
         Route::get('/verif', [Controllers\Admin\PelelanganController::class, 'index'])->name('index');
         Route::put('/verif', [Controllers\Admin\PelelanganController::class, 'edit'])->name('edit');
     });
