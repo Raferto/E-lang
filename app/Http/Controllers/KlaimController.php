@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 use App\Models\Pembayaran;
 
@@ -11,8 +13,14 @@ use Illuminate\Support\Facades\Auth;
 
 use Carbon\Carbon;
 
+use App\Interfaces\QRCodeInterface;
+
 class KlaimController extends Controller
 {
+    public function __construct(QRCodeInterface $qrcode_service) {
+        $this->qrcode_service = $qrcode_service;
+    }
+
     public function index() {
 
         // dapetin user id yang sekarang lagi aktif
@@ -36,6 +44,7 @@ class KlaimController extends Controller
         $penawaran_menang = DB::table('barang')
                             ->join('penawaran_barang', 'barang.penawaran_id', '=', 'penawaran_barang.id')
                             ->where('penawaran_barang.user_id', '=', $user_id_cari)
+                            ->where('barang.lelang_finished', '<', Carbon::now())
                             ->paginate(5);
 
         // dd($penawaran_menang);
@@ -58,10 +67,18 @@ class KlaimController extends Controller
                         ->where('penawaran_id', $id)
                         ->first();
 
+        $qrcode = "";
+
+        if ($pembayaran)
+            $qrcode = $this->qrcode_service->createQRCode(
+                $pembayaran->bukti_pembayaran
+            );
+
         // dd($penawaran);
         return view('klaim.show')
                 ->with('penawaran', $penawaran)
-                ->with('pembayaran', $pembayaran);
+                ->with('pembayaran', $pembayaran)
+                ->with('qrcode', $qrcode);
     }
 
     public function create(Request $request) {
@@ -75,12 +92,12 @@ class KlaimController extends Controller
             'penawaran_id' => 'required'
         ]);
 
-        //proses gambar
-        $bukti = $request->file('bukti_pembayaran');
-        $bukti_ext = $bukti->getClientOriginalExtension();
-        $target_name = 'bukti-bayar_' . '[user_id]_' . '[barang_id]_' . 'tanggal_.' . $bukti_ext; // ganti sesuai dibutuhin
-        $target_path = 'data_files/bukti_pembayaran';
-        $bukti->move($target_path, $target_name);
+        // photo process
+        $photo = $request->file('bukti_pembayaran');
+        $content = file_get_contents($photo->getRealPath());
+        $photo_ext = $photo->getClientOriginalExtension();
+        $file_name = Auth::id() . ((string) Str::uuid()) . '.' . $photo_ext;
+        Storage::put('public/bukti_pembayaran/' . $file_name, $content);
 
         //buat row baru
 
@@ -96,7 +113,7 @@ class KlaimController extends Controller
                 'user_id' => $user_id, // ambil dari session
                 'penawaran_id' => '1', // ambil dari request
                 'status' => 'menunggu verifikasi', // isi status yang bener
-                'bukti_pembayaran' => $target_name,
+                'bukti_pembayaran' => asset('storage/bukti_pembayaran/' . $file_name),
                 'deadline' => Carbon::now()->addDays(7)->toDateTimeString(),
             ]);
 

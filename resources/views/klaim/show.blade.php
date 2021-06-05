@@ -84,6 +84,15 @@
                         </div>
                     </form>
                 </div>
+                @else
+                <div class="mt-4">
+                    <div class="row">
+                        <h3>Bukti Bayar</h3>
+                        <div class="col-12">
+                            <img src="{{$qrcode}}" alt="QR Code" />
+                        </div>
+                    </div>
+                </div>
                 @endif
             </div>
         </div>

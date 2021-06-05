@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PenawaranBarang;
 use App\Http\Requests\StoreBid;
+use Carbon\Carbon;
 
 class BidController extends Controller
 {
@@ -21,8 +22,10 @@ class BidController extends Controller
         $penawaran_barang = PenawaranBarang::where('barang_id', $barang_id)
         ->orderBy('harga', 'DESC')
         ->first();
+        $barang = DB::table('barang')
+        ->find($barang_id);
 
-        if (!$penawaran_barang || $penawaran_barang->harga < $harga) return true;
+        if ((!$penawaran_barang && $harga >= $barang->harga_awal) || $penawaran_barang->harga < $harga) return true;
 
         return false;
     }
@@ -45,7 +48,10 @@ class BidController extends Controller
 
             DB::table('barang')
             ->where('id', $request->barang_id)
-            ->update(['harga_awal' => $request->harga]);
+            ->update([
+                'harga_awal' => $request->harga,
+                'penawaran_id' => $penawaran_barang->id
+            ]);
 
             return redirect()
             ->route('bid.index');
