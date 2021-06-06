@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Mail\VerifAccount;
 use App\Mail\NotVerifAccount;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UserVerificationController extends Controller
@@ -15,6 +16,7 @@ class UserVerificationController extends Controller
     {
         $users = DB::table('users')
             ->where('verified', 0)
+            ->whereNull('admin_id')
             ->paginate(5);
 
         return view('admin.verify-account')
@@ -30,7 +32,8 @@ class UserVerificationController extends Controller
         $update = DB::table('users')
             ->where('id', $id)
             ->update([
-                'verified' => 1
+                'verified' => 1,
+                'admin_id' => Auth::guard('admin')->id()
             ]);
         $to_name = $user->nama;
         $to_email = $user->email;
@@ -58,7 +61,8 @@ class UserVerificationController extends Controller
         $update = DB::table('users')
             ->where('id', $id)
             ->update([
-                'verified' => 0
+                'verified' => 0,
+                'admin_id' => Auth::guard('admin')->id()
             ]);
         $to_email = $user->email;
         // dd($user);
