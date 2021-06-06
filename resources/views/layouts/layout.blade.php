@@ -54,7 +54,7 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                         <a href="{{route('barangku.index')}}" class="nav-link">Barangku</a>
                         @endauth
                         @if(Auth::guard('admin')->check())
-                        <a href="#" class="nav-link">Verifikasi Akun</a>
+                        <a href="{{route('user-verification.index')}}" class="nav-link">Verifikasi Akun</a>
                         @endif
                     </ul>
 
