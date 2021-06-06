@@ -10,8 +10,16 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreBarang;
 
+use App\Interfaces\QRCodeInterface;
+
+use Carbon\Carbon;
+
 class BarangkuController extends Controller
 {
+    public function __construct(QRCodeInterface $qrcode_service) {
+        $this->qrcode_service = $qrcode_service;
+    }
+
     public function index(){
         $barang = barang::paginate(5);
 
@@ -23,9 +31,15 @@ class BarangkuController extends Controller
         $barang = DB::table('barang')
         ->where('id', $id)
         ->first();
+        
+
+        $qrcode = $this->qrcode_service->createQRCode(
+            $barang->nama . '|' . $barang->deskripsi . '|' . $barang->harga_awal . '|' . $barang->lelang_start . $barang->lelang_finished . '|' . $barang->status
+        );
 
         return view('barangku.show')
-        ->with('barang', $barang);
+        ->with('barang', $barang)
+        ->with('qrcode', $qrcode);
     }
 
     public function form(){
