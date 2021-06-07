@@ -45,7 +45,7 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                                 <li><a href="{{route('bid.index')}}" class="dropdown-item">Barang Ditawar</a></li>
                                 @endauth
                                 @if(Auth::guard("admin")->check())
-                                <li><a href="#" class="dropdown-item">Cek Barang</a></li>
+                                <li><a href="{{route('verif-barang.index')}}" class="dropdown-item">Cek Barang</a></li>
                                 <li><a href="#" class="dropdown-item">Cek Pembayaran</a></li>
                                 @endif
                             </ul>

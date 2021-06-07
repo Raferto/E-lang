@@ -61,6 +61,13 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::get('/verif', [Controllers\Admin\PelelanganController::class, 'index'])->name('index');
         Route::put('/verif', [Controllers\Admin\PelelanganController::class, 'edit'])->name('edit');
     });
+
+    Route::prefix('verif-barang')->name('verif-barang.')->group(function () {
+        Route::get('/', [Controllers\Admin\BarangController::class, 'index'])->name('index');
+        Route::get('/{id}', [Controllers\Admin\BarangController::class, 'show'])->name('show');
+        Route::get('/accept/{id}', [Controllers\Admin\BarangController::class, 'accept'])->name('accept');
+        Route::get('/decline/{id}', [Controllers\Admin\BarangController::class, 'decline'])->name('decline');
+    });
 });
 
 require __DIR__ . '/auth.php';
