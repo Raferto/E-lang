@@ -17,7 +17,7 @@ class CreateTableTermasuk extends Migration
             $table->unsignedBigInteger('barang_id');
             $table->unsignedBigInteger('kategori_id');
 
-            $table->primary(['barang_id', 'kategori_id']);
+            // $table->primary(['barang_id', 'kategori_id']);
             $table->foreign('kategori_id')->references('id')->on('kategori');
             $table->foreign('barang_id')->references('id')->on('barang');
         });
