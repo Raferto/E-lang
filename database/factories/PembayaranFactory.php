@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Barang;
+use App\Models\Pembayaran;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class BarangFactory extends Factory
+class PembayaranFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Barang::class;
+    protected $model = Pembayaran::class;
 
     /**
      * Define the model's default state.
@@ -23,13 +23,9 @@ class BarangFactory extends Factory
     public function definition()
     {
         return [
+            'penawaran_id' => $this->faker->unique()->numberBetween(1, 10),
             'user_id' => $this->faker->numberBetween(1, 10),
-            'nama' => 'nama barang_' . Str::random(10),
-            'harga_awal' => '100000',
-            'photo' => 'http://e-lang.com/storage/35db856c4-92e1-45b2-b652-062070360f3e.jpg',
-            'deskripsi' => $this->faker->text(200, 3),
-            'lelang_start' => now(),
-            'lelang_finished' => now(),
+            'bukti_pembayaran' => "http://e-lang.com/storage/35db856c4-92e1-45b2-b652-062070360f3e.jpg"
         ];
     }
 }
