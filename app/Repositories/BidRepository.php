@@ -2,7 +2,7 @@
 /**
  *
  */
-class ClassName implements BidRepositoryInterface
+class BidRepository implements BidRepositoryInterface
 {
 
     function __construct()

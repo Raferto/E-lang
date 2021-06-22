@@ -23,16 +23,16 @@ class PelelanganController extends Controller
 
     public function search(Search $request)
     {
-        $search = $request->search;
+        $keyword = $request->keyword;
         $now = Carbon::now();
         $barangs = DB::table('barang')
-            ->where('nama', 'like', "%" . $search . "%")
+            ->where('nama', 'like', "%" . $keyword . "%")
             // ->where('lelang_finished', '>', $now)
             ->paginate(5);
 
         return view('lelang.index')
             ->with('barangs', $barangs)
-            ->with('katkun', $search);
+            ->with('keyword', $keyword);
     }
 
     public function show(Request $request, $id)
