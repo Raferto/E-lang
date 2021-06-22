@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
-/**
- *
- */
+use App\Http\Requests\StoreBid;
+
 interface BidRepositoryInterface
 {
-    // code...
+    public function getAll();
+
+    public function create(StoreBid $request);
 }
