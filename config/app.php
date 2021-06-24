@@ -175,6 +175,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\QRCodeChillerlanServiceProvider::class,
+
+        /*
+        * custom service providers
+        */
+        App\Providers\KlaimRepositoryServiceProvider::class,
     ],
 
     /*
