@@ -15,37 +15,21 @@ use Carbon\Carbon;
 
 use App\Interfaces\QRCodeInterface;
 
+use App\Repositories\KlaimRepositoryInterface;
+
 class KlaimController extends Controller
 {
-    public function __construct(QRCodeInterface $qrcode_service) {
+    private $KlaimRepo;
+
+    public function __construct(QRCodeInterface $qrcode_service, KlaimRepositoryInterface $KlaimRepo) {
         $this->qrcode_service = $qrcode_service;
+        $this->KlaimRepo = $KlaimRepo;
     }
 
     public function index() {
 
-        // dapetin user id yang sekarang lagi aktif
-        $user_id_cari = Auth::user()->id;
-
-        // query lama
-        // $win_penararan = DB::table('penawaran_barang')
-        //                     ->select('barang_id', 'user_id', DB::raw('max(harga) as max_harga'))
-        //                     ->groupBy('barang_id');
-
-        // $penawaran_menang = DB::table('penawaran_barang')->select('penawaran_barang.id as id', 'penawaran_barang.barang_id', 'penawaran_barang.user_id', 'penawaran_barang.harga', 'barang.nama', 'barang.photo','barang.deskripsi', 'barang.status', 'barang.lelang_start', 'barang.lelang_finished')
-        //                 ->joinSub($win_penararan, 'tmp', function($join) {
-        //                     $join->on('penawaran_barang.barang_id', '=', 'tmp.barang_id');
-        //                     $join->on('penawaran_barang.harga', '=', 'tmp.max_harga');
-        //                 })
-        //                 ->join('barang', 'penawaran_barang.barang_id', '=', 'barang.id')
-        //                 ->where('penawaran_barang.user_id', '=', $user_id_cari)
-        //                 ->get();
-
-        // query baru
-        $penawaran_menang = DB::table('barang')
-                            ->join('penawaran_barang', 'barang.penawaran_id', '=', 'penawaran_barang.id')
-                            ->where('penawaran_barang.user_id', '=', $user_id_cari)
-                            ->where('barang.lelang_finished', '<', Carbon::now())
-                            ->paginate(5);
+        // ambil data menggunakan repository
+        $penawaran_menang = $this->KlaimRepo->index();
 
         // dd($penawaran_menang);
 
@@ -56,16 +40,10 @@ class KlaimController extends Controller
 
     public function show(Request $request, $id) {
 
-        // dapetin penawaran sesuai request
-        $penawaran = DB::table('penawaran_barang')
-                        ->select('penawaran_barang.id as id', 'penawaran_barang.barang_id', 'penawaran_barang.user_id', 'penawaran_barang.harga', 'barang.nama', 'barang.photo','barang.deskripsi', 'barang.status', 'barang.lelang_start', 'barang.lelang_finished')
-                        ->join('barang', 'penawaran_barang.barang_id', '=', 'barang.id')
-                        ->where('penawaran_barang.id', $id)
-                        ->first();
+        // dapetin penawaran menggunakan repository
+        $penawaran = $this->KlaimRepo->getPenawaran($id);
 
-        $pembayaran = DB::table('pembayaran')
-                        ->where('penawaran_id', $id)
-                        ->first();
+        $pembayaran = $this->KlaimRepo->getPembayaran($id);
 
         $qrcode = "";
 
@@ -83,44 +61,17 @@ class KlaimController extends Controller
 
     public function create(Request $request) {
 
-
-        $user_id = Auth::user()->id;
-
-        //validasi data pembayaran
-        $this->validate($request, [
-            'bukti_pembayaran' => 'required',
-            'penawaran_id' => 'required'
-        ]);
-
-        // photo process
-        $photo = $request->file('bukti_pembayaran');
-        $content = file_get_contents($photo->getRealPath());
-        $photo_ext = $photo->getClientOriginalExtension();
-        $file_name = Auth::id() . ((string) Str::uuid()) . '.' . $photo_ext;
-        Storage::put('public/bukti_pembayaran/' . $file_name, $content);
-
-        //buat row baru
-
-
-        // ! status
-        // belum dibayar
-        // menunggu verifikasi
-        // sudah dibayar
-        // ditolak
-
+        // menggunakan repository
         try {
-            Pembayaran::create([
-                'user_id' => $user_id, // ambil dari session
-                'penawaran_id' => '1', // ambil dari request
-                'status' => 'menunggu verifikasi', // isi status yang bener
-                'bukti_pembayaran' => asset('storage/bukti_pembayaran/' . $file_name),
-                'deadline' => Carbon::now()->addDays(7)->toDateTimeString(),
-            ]);
+            DB::beginTransaction();
 
+            $this->KlaimRepo->create($request);
+
+            DB::commit();
             return redirect()->back();
 
+        } catch(\Illuminate\Database\QueryException $e) {
 
-        }catch(\Illuminate\Database\QueryException $e) {
             $errorCode = $e->errorInfo[1];
             $errorMsg = $e->errorInfo[2];
             if ($errorCode == 1062) {
@@ -128,6 +79,7 @@ class KlaimController extends Controller
             }
 
             dd($errorMsg);
+
         } catch (\Exception $e) {
 
             dd($e->getMessage());
