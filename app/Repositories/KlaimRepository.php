@@ -44,6 +44,19 @@ class KlaimRepository implements KlaimRepositoryInterface
         return $penawaran_menang;
     }
 
+    public function indexAPI(Request $request) {
+
+        $user_id_cari = $request->user();
+
+        $penawaran_menang = DB::table('barang')
+                            ->join('penawaran_barang', 'barang.penawaran_id', '=', 'penawaran_barang.id')
+                            ->where('penawaran_barang.user_id', '=', $user_id_cari->id)
+                            ->where('barang.lelang_finished', '<', Carbon::now())
+                            ->get();
+
+        return $penawaran_menang;
+    }
+
     public function getPenawaran($id) {
 
         // dapetin penawaran sesuai request
@@ -64,6 +77,43 @@ class KlaimRepository implements KlaimRepositoryInterface
                         ->first();
 
         return $pembayaran;
+    }
+
+    public function createAPI(Request $request) {
+        $user_id = $request->user()->id;
+
+        //validasi data pembayaran
+        $validated = $request->validate([
+            'bukti_pembayaran' => 'required',
+            'penawaran_id' => 'required'
+        ]);
+
+        // photo process
+        $photo = $request->file('bukti_pembayaran');
+        $content = file_get_contents($photo->getRealPath());
+        $photo_ext = $photo->getClientOriginalExtension();
+        $file_name = Auth::id() . ((string) Str::uuid()) . '.' . $photo_ext;
+        Storage::put('public/bukti_pembayaran/' . $file_name, $content);
+
+        //buat row baru
+
+
+        // ! status
+        // belum dibayar
+        // menunggu verifikasi
+        // sudah dibayar
+        // ditolak
+
+        $newBayar = Pembayaran::create([
+            'user_id' => $user_id, // ambil dari session
+            'penawaran_id' => $request->penawaran_id, // ambil dari request
+            'status' => 'menunggu verifikasi', // isi status yang bener
+            'bukti_pembayaran' => asset('storage/bukti_pembayaran/' . $file_name),
+            'deadline' => Carbon::now()->addDays(7)->toDateTimeString(),
+        ]);
+
+        return $newBayar;
+
     }
 
     public function create(Request $request) {
@@ -93,7 +143,7 @@ class KlaimRepository implements KlaimRepositoryInterface
 
         Pembayaran::create([
             'user_id' => $user_id, // ambil dari session
-            'penawaran_id' => '1', // ambil dari validated
+            'penawaran_id' => $request->penawaran_id, // ambil dari request
             'status' => 'menunggu verifikasi', // isi status yang bener
             'bukti_pembayaran' => asset('storage/bukti_pembayaran/' . $file_name),
             'deadline' => Carbon::now()->addDays(7)->toDateTimeString(),
