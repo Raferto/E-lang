@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreBid;
 use App\Repositories\BidRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
-class BidController extends Controller
+class BidController extends BaseController
 {
     private $repository;
 
@@ -18,11 +17,10 @@ class BidController extends Controller
     public function index() {
         $penawaran_barangs = $this->repository->getAll();
 
-        return response()
-        ->json([
-            'success' => true,
-            'data' => $penawaran_barangs
-        ], 200);
+        return $this->sendResponse(
+            $penawaran_barangs,
+            'success'
+        );
     }
 
     public function create(StoreBid $request) {
@@ -32,18 +30,17 @@ class BidController extends Controller
 
             DB::commit();
 
-            return response()
-            ->json([
-                'success' => true,
-            ], 200);
+            return $this->sendResponse(
+                [],
+                'success'
+            );
         } catch (\Exception $e) {
             DB::rollBack();
 
-            return response()
-            ->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ], 200);
+            return $this->sendError(
+                $e->getMessage(),
+                $code = 500
+            );
         }
     }
 }

@@ -19,7 +19,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('bid')->name('bid.')->group(function () {
-    Route::get('/', [API\BidController::class, 'index'])->name('index');
-    Route::post('/', [API\BidController::class, 'create'])->name('create');
+Route::post('register', [API\AuthController::class, 'register']);
+Route::post('login', [API\AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group( function () {
+    Route::prefix('bid')->name('bid.')->group(function () {
+        Route::get('/', [API\BidController::class, 'index'])->name('index');
+        Route::post('/', [API\BidController::class, 'create'])->name('create');
+    });
 });
