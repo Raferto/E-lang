@@ -38,7 +38,6 @@ class SearchAPIController extends Controller
     {
 
         // dapetin barang menggunakan repository
-        // dd($request->id);
         $barang = $this->SearchRepo->showAPI($request);
 
         return response()
