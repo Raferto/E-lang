@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreBarang;
 use App\Repositories\BarangRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -16,8 +17,8 @@ class BarangController extends BaseController
         $this->barangRepository = $barangRepository;
     }
 
-    public function index() {
-        $barang = $this->repository->getAllBarangku();
+    public function index(Request $request){
+        $barang = $this->barangRepository->getAllBarangku($request->user_id);
 
         return $this->sendResponse(
             $barang,
@@ -25,8 +26,8 @@ class BarangController extends BaseController
         );
     }
 
-    public function show(Request $request, $id){
-        $barang = $this->barangRepository->getBarangku($id);
+    public function show(Request $request){
+        $barang = $this->barangRepository->getBarangku($request->id);
         
         return response()
         ->json([
@@ -38,21 +39,45 @@ class BarangController extends BaseController
     public function create(StoreBarang $request) {
         try {
             DB::beginTransaction();
-            $this->barangRepository->create($request);
+            $barang = $this->barangRepository->create($request);
 
             DB::commit();
 
-            return $this->sendResponse(
-                [],
-                'success'
-            );
-        } catch (\Exception $e) {
-            DB::rollBack();
+            return response()
+                ->json([
+                    'success' => true,
+                    'data' => $barang
+                ], 200);
 
-            return $this->sendError(
-                $e->getMessage(),
-                $code = 500
-            );
+        } catch(\Illuminate\Database\QueryException $e) {
+
+            $errorCode = $e->errorInfo[1];
+            $errorMsg = $e->errorInfo[2];
+            if ($errorCode == 1062) {
+                return response()
+                    ->json([
+                        'success' => false,
+                        'error' => $errorCode,
+                        'message' => $errorMsg
+                    ], 500);
+            }
+
+            return response()
+                    ->json([
+                        'success' => false,
+                        'error' => $errorCode,
+                        'message' => $errorMsg
+                    ], 500);
+
+
+        } catch (\Exception $e) {
+
+            return response()
+                    ->json([
+                        'success' => false,
+                        'error' => '500',
+                        'message' => $e
+                    ], 500);
         }
     }
 }

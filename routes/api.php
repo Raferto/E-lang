@@ -38,9 +38,9 @@ Route::middleware('auth:sanctum')->group( function () {
 
     // route barangku
     Route::prefix('barangku')->name('barangku.')->group(function () {
-        Route::post('/create', [API\BarangkuController::class, 'create'])->name('create');
-        Route::get('/', [API\BarangkuController::class, 'index'])->name('index');
-        Route::get('/show/{id}', [API\BarangkuController::class, 'show'])->name('show');
+        Route::post('/create', [API\BarangController::class, 'create'])->name('create');
+        Route::get('/', [API\BarangController::class, 'index'])->name('index');
+        Route::post('/show', [API\BarangController::class, 'show'])->name('show');
     });
 });
 

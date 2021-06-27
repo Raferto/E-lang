@@ -13,13 +13,18 @@ use Carbon\Carbon;
 class BarangRepository implements BarangRepositoryInterface
 {
     public function getAllBarangku() {
-        return barang::paginate(5);
+        $user_id = Auth::user()->id;
+
+        $barang = DB::table('barang')
+                    ->where('user_id', $user_id)
+                    ->paginate(5);
+        return $barang;
     }
 
     public function getBarangku($id){
         $barang = DB::table('barang')
-        ->where('id', $id)
-        ->first();
+                    ->where('id', $id)
+                    ->first();
         
         return $barang;
     }
@@ -28,8 +33,6 @@ class BarangRepository implements BarangRepositoryInterface
         try {
             $user_id = Auth::user()->id;
             
-            $input = $request->all();
-
             $barang = new Barang;
 
             $barang->nama = $request->nama;
@@ -43,11 +46,13 @@ class BarangRepository implements BarangRepositoryInterface
             $photo = $request->file('photo');
             $content = file_get_contents($photo->getRealPath());
             $photo_ext = $photo->getClientOriginalExtension();
-            $file_name = Auth::id() . ((string) Str::uuid()) . '.' . $photo_ext;
+            $file_name = $user_id . ((string) Str::uuid()) . '.' . $photo_ext;
             Storage::put('public/barangku/' . $file_name, $content);
 
             $barang->photo = asset('storage/barangku/' . $file_name);
             $barang->save();
+
+            return $barang;
 
         } catch (\Exception $e) {
             dd($e->getMessage());
