@@ -37,7 +37,7 @@
             @endforeach
             @if (count($barangs) < 1) <div class="d-flex justify-content-between align-items-center sc-link">
                 <div>
-                    <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Tidak Ada Barang Yang Sesuai Dengan Kata Kunci {{'"'.$katkun.'"'}}</p>
+                    <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Tidak Ada Barang Yang Sesuai Dengan Kata Kunci {{'"'.$keyword.'"'}}</p>
                 </div>
                 @endif
         </ul>

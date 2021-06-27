@@ -180,6 +180,7 @@ return [
         * custom service providers
         */
         App\Providers\KlaimRepositoryServiceProvider::class,
+        App\Providers\SearchServiceProvider::class,
     ],
 
     /*

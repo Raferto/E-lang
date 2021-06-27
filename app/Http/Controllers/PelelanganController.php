@@ -5,30 +5,32 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Search;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Repositories\SearchRepositoryInterface;
 use Carbon\Carbon;
 
 class PelelanganController extends Controller
 {
+    private $SearchRepo;
+
+    public function __construct(SearchRepositoryInterface $SearchRepo)
+    {
+        $this->SearchRepo = $SearchRepo;
+    }
     public function index()
     {
-        $now = Carbon::now();
-        $barangs = DB::table('barang')
-            ->where('lelang_start', '<', $now)
-            ->where('lelang_finished', '>', $now)
-            ->paginate(5);
-
+        $barangs = $this->SearchRepo->index();
+        dd($barangs);
         return view('lelang.index')
             ->with('barangs', $barangs);
     }
 
     public function search(Search $request)
     {
-        $keyword = $request->keyword;
-        $now = Carbon::now();
-        $barangs = DB::table('barang')
-            ->where('nama', 'like', "%" . $keyword . "%")
-            // ->where('lelang_finished', '>', $now)
-            ->paginate(5);
+        $keyword = $request->search;
+        // dump($keyword);
+        // dump($request);
+        $barangs = $this->SearchRepo->search($request);
+
 
         return view('lelang.index')
             ->with('barangs', $barangs)
@@ -37,9 +39,7 @@ class PelelanganController extends Controller
 
     public function show(Request $request, $id)
     {
-        $barang = DB::table('barang')
-            ->where('id', $id)
-            ->first();
+        $barang = $this->SearchRepo->show($request, $id);
 
         return view('lelang.show')
             ->with('barang', $barang);

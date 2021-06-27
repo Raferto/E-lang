@@ -22,7 +22,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('register', [API\AuthController::class, 'register']);
 Route::post('login', [API\AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group( function () {
+
+// route pencarian barang
+Route::prefix('search')->name('search.')->group(function () {
+    Route::post('/', [API\SearchAPIController::class, 'index'])->name('index');
+    Route::post('/show', [API\SearchAPIController::class, 'show'])->name('show');
+    Route::post('/search', [API\SearchAPIController::class, 'search'])->name('search');
+});
+
+Route::middleware('auth:sanctum')->group(function () {
     // route bid
     Route::prefix('bid')->name('bid.')->group(function () {
         Route::get('/', [API\BidController::class, 'index'])->name('index');
@@ -36,4 +44,3 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::post('/create', [API\KlaimAPIController::class, 'create'])->name('create');
     });
 });
-

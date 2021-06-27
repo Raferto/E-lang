@@ -61,7 +61,7 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                     <!-- SEARCH FORM -->
                     <form class="form-inline ml-0 ml-md-3" action="{{ route('lelang.search') }}" method="GET">
                         <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" name="keyword" type="search" placeholder="Search" aria-label="Search" value="{{ isset($keyword) ? $keyword : old('keyword') }}">
+                            <input class="form-control form-control-navbar" name="search" type="search" placeholder="Search" aria-label="Search" value="{{ isset($keyword) ? $keyword : old('keyword') }}">
                             <div class="input-group-append">
                                 <button class="btn btn-navbar" type="submit">
                                     <i class="fas fa-search"></i>
