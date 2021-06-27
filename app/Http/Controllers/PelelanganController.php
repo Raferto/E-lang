@@ -19,7 +19,7 @@ class PelelanganController extends Controller
     public function index()
     {
         $barangs = $this->SearchRepo->index();
-        dd($barangs);
+        // dd($barangs);
         return view('lelang.index')
             ->with('barangs', $barangs);
     }
