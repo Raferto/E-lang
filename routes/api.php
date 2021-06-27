@@ -43,4 +43,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/show', [API\KlaimAPIController::class, 'show'])->name('show');
         Route::post('/create', [API\KlaimAPIController::class, 'create'])->name('create');
     });
+
+    // route barangku
+    Route::prefix('barangku')->name('barangku.')->group(function () {
+        Route::post('/create', [API\BarangkuController::class, 'create'])->name('create');
+        Route::get('/', [API\BarangkuController::class, 'index'])->name('index');
+        Route::get('/show/{id}', [API\BarangkuController::class, 'show'])->name('show');
+    });
 });

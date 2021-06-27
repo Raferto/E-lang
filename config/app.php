@@ -181,6 +181,7 @@ return [
         */
         App\Providers\KlaimRepositoryServiceProvider::class,
         App\Providers\SearchServiceProvider::class,
+        App\Providers\BarangRepositoryServiceProvider::class,
     ],
 
     /*
