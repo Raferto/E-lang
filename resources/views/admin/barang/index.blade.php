@@ -32,10 +32,6 @@
             </p>
         </div>
     </div>
-<div class="d-flex justify-content-center" style="width:100%;">
-    <p>
-    </p>
-</div>
 @endsection
 
 @section('js')
