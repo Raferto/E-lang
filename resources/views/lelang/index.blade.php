@@ -13,7 +13,6 @@
 @endsection
 
 @section('main')
-
 <div class="row justify-content-center">
     <div class="col-md-8">
         <p>Page {{ $barangs->currentPage() }} of {{ $barangs->lastPage() }}</p>
@@ -37,7 +36,9 @@
             @endforeach
             @if (count($barangs) < 1) <div class="d-flex justify-content-between align-items-center sc-link">
                 <div>
+                    @if (isset($keyword))
                     <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Tidak Ada Barang Yang Sesuai Dengan Kata Kunci {{'"'.$keyword.'"'}}</p>
+                    @endif
                 </div>
                 @endif
         </ul>
