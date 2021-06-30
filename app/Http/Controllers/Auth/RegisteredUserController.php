@@ -9,7 +9,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Str;
 
 class RegisteredUserController extends Controller
 {
@@ -39,7 +41,14 @@ class RegisteredUserController extends Controller
             'alamat' => 'required',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'photo' => 'required',
         ]);
+
+        $photo = $request->file('photo');
+        $content = file_get_contents($photo->getRealPath());
+        $photo_ext = $photo->getClientOriginalExtension();
+        $file_name = ((string) Str::uuid()) . '.' . $photo_ext;
+        Storage::put('public/profile/' . $file_name, $content);
 
         $user = User::create([
             'nama' => $request->name,
@@ -47,6 +56,7 @@ class RegisteredUserController extends Controller
             'nomor_telpon' => $request->nomor_telpon,
             'alamat' => $request->alamat,
             'password' => Hash::make($request->password),
+            'photo' => asset('storage/profile/' . $file_name)
         ]);
 
         event(new Registered($user));

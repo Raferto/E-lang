@@ -92,6 +92,11 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                     @endif
 
                     @if (\App\Libraries\AuthHelper::check())
+                        @if (isset(\App\Libraries\AuthHelper::user()->photo) && \App\Libraries\AuthHelper::user()->photo)
+                            <img src="{{\App\Libraries\AuthHelper::user()->photo}}" class="img-circle elevation-2" width="40" height="40" alt="User Image">
+                        @else
+                            <img src="{{asset('asset/default_user.jpg')}}" class="img-circle elevation-2" width="40" height="40" alt="User Image">
+                        @endif
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{\App\Libraries\AuthHelper::user()->nama}}</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
