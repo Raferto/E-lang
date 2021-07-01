@@ -24,11 +24,31 @@
                             <div class="col-3">
                                 <img src="{{$penawaran_barang->barang->photo}}" class="img img-fluid" style="width: 10vw; margin-right:5%;"/>
                             </div>
-                            <div class="col-7 d-flex align-items-center">
+                            <div class="col-4 d-flex align-items-center">
                                 {{ $penawaran_barang->barang->nama }}
                             </div>
-                            <div class="col-2 d-flex align-items-center">
-                                {{ $penawaran_barang->harga }}
+                            <div class="col-5 pt-2">
+                                <div class="row">
+                                    <div class="col">
+                                        <p>Penawaran Anda : {{ $penawaran_barang->harga_rupiah() }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        @if ($penawaran_barang->harga == $penawaran_barang->barang->harga_awal) 
+                                        <p>Status Penawaran : <span style="color: green;">Tertinggi</span></p>
+                                        @else
+                                        <p>Status Penawaran : <span style="color: red;">Bukan Tertinggi</span></p>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <a href="{{route('lelang.show', ['id' => $penawaran_barang->barang->id])}}" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-money-check"></i> Lihat Barang
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </li>

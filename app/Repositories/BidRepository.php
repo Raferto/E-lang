@@ -11,7 +11,8 @@ use Carbon\Carbon;
 class BidRepository implements BidRepositoryInterface
 {
     public function getAll() {
-        return PenawaranBarang::paginate(5);
+        return PenawaranBarang::where('user_id', Auth::id())
+        ->paginate(5);
     }
 
     private function checkIfBidIsBigger($barang_id, $harga) {
@@ -29,7 +30,6 @@ class BidRepository implements BidRepositoryInterface
     public function create(StoreBid $request) {
         if (!$this->checkIfBidIsBigger($request->barang_id, $request->harga))
             throw new \Exception("Harga Lebih Rendah atau Sama dari Penawaran Sebelumnya", 1);
-
 
         $penawaran_barang = PenawaranBarang::where('barang_id', $request->barang_id)
         ->where('user_id', Auth::id())

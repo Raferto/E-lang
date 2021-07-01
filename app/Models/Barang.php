@@ -37,4 +37,7 @@ class Barang extends Model
         ->get();
     }
 
+    public function harga_awal_rupiah() {
+        return "Rp " . number_format($this->harga_awal,2,',','.');
+    }
 }

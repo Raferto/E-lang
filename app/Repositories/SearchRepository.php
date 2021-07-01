@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 use App\Models\Pembayaran;
+use App\Models\Barang;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -46,8 +47,8 @@ class SearchRepository implements SearchRepositoryInterface
     {
 
         // dapetin barang sesuai
-        $barang = DB::table('barang')
-            ->where('id', $id)
+        $barang = Barang::
+            where('id', $id)
             ->first();
 
         return $barang;

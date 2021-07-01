@@ -22,8 +22,7 @@ class BarangRepository implements BarangRepositoryInterface
     }
 
     public function getBarangku($id){
-        $barang = DB::table('barang')
-                    ->where('id', $id)
+        $barang = Barang::where('id', $id)
                     ->first();
         
         return $barang;

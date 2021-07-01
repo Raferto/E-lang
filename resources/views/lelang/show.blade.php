@@ -29,7 +29,7 @@
               <hr>
               <div class="bg-gray py-2 px-3 mt-4">
                 <h2 class="mb-0">
-                  Penawaran Tetinggi : {{$barang->harga_awal}}
+                  Penawaran Tetinggi : {{$barang->harga_awal_rupiah()}}
                 </h2>
               </div>
 

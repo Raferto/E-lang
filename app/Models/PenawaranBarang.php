@@ -13,4 +13,8 @@ class PenawaranBarang extends Model
     public function barang() {
         return $this->hasOne(Barang::class, 'id', 'barang_id');
     }
+
+    public function harga_rupiah() {
+        return "Rp " . number_format($this->harga,2,',','.');
+    }
 }

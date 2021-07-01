@@ -37,7 +37,7 @@
                         <h2 class="lead"><b>{{$barang->nama}}</b></h2>
                         <p class="text-muted text-sm"><b>Mulai Lelang: </b> {{date( "d/m/Y h:i:s", strtotime($barang->lelang_start))}} </p>
                         <p class="text-muted text-sm"><b>Selesai Lelang: </b> {{date( "d/m/Y h:i:s", strtotime($barang->lelang_finished))}} </p>
-                        <p class="text-muted text-sm"><b>Lelang Tertinggi: </b> {{$barang->harga_awal}} </p>
+                        <p class="text-muted text-sm"><b>Lelang Tertinggi: </b> {{$barang->harga_awal_rupiah()}} </p>
                     </div>
                     <div class="col-5 text-center">
                         <img src="{{$barang->photo}}" alt="user-avatar" class="img-fluid">

@@ -31,7 +31,7 @@
 
 		<div class="form-group">
 			<label for="harga_awal">Harga Awal</label>
-			<input type="number" name="harga_awal" class="form-control" value="{{$barang->harga_awal}}" readonly/>
+			<input type="number" name="harga_awal" class="form-control" value="{{$barang->harga_awal_rupiah()}}" readonly/>
 		</div>
 
 		<div class="form-group">
