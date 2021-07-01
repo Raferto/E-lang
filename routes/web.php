@@ -45,6 +45,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [Controllers\KeluhanController::class, 'showForm'])->name('showForm');
         Route::post('/', [Controllers\KeluhanController::class, 'create'])->name('create');
     });
+
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', [Controllers\ProfileController::class, 'show'])->name('show');
+        Route::post('/', [Controllers\ProfileController::class, 'update'])->name('update');
+    });
 });
 
 Route::middleware(['auth:admin'])->group(function () {

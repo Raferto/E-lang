@@ -100,7 +100,7 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                         <a id="dropdownSubMenu3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{\App\Libraries\AuthHelper::user()->nama}}</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                             <li>
-                                <a href="#" class="dropdown-item">
+                                <a href="{{route('profile.show')}}" class="dropdown-item">
                                     Profil
                                 </a>
                             </li>
@@ -133,6 +133,19 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            @if ($message = Session::get('success'))
+            <div class="alert alert-success alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
+
+            @if ($message = Session::get('error'))
+            <div class="alert alert-danger alert-block">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>{{ $message }}</strong>
+            </div>
+            @endif
             <!-- Content Header (Page header) -->
             {{-- <div class="content-header">
                 <div class="container">
