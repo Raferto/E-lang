@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 interface KeluhanRepositoryInterface
 {
-    public function showForm();
-
     public function create(Request $request);
+
+    public function sendMailAck($keluhan);
 }
