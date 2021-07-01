@@ -22,7 +22,6 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <a href="{{route('home')}}" class="navbar-brand">
-                    <!-- <img src="{{asset('template-admin-lte')}}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
                     <span class="brand-text font-weight-light">E-Lang</span>
                 </a>
 
@@ -130,7 +129,7 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-            <div class="content-header">
+            {{-- <div class="content-header">
                 <div class="container">
                     <div class="row mb-2">
                         <div class="col-sm-6">
@@ -143,15 +142,15 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
-            </div>
+            </div> --}}
             <!-- /.content-header -->
 
             <!-- Main content -->
-            <div class="content">
-                <div class="container">
+            {{-- <div class="content">
+                <div class="container"> --}}
                     @yield('main')
-                </div><!-- /.container-fluid -->
-            </div>
+                {{-- </div><!-- /.container-fluid -->
+            </div> --}}
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->

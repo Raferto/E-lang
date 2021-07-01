@@ -34,6 +34,7 @@
               </div>
 
               @auth
+              @if (auth()->user()->verified)
               <div class="mt-4">
                 <form class="" action="{{route('bid.create')}}" method="POST">
                     @csrf
@@ -54,6 +55,7 @@
                     </div>
                 </form>
               </div>
+              @endif
               @endauth
             </div>
           </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Barang extends Model
 {
@@ -25,6 +26,15 @@ class Barang extends Model
 
     public function barang() {
         return $this->belongsTo(Barang::class, 'barang_id', 'id');
+    }
+
+    public static function getActiveBarang() {
+        $now = Carbon::now();
+
+        return Barang::where('lelang_start', '<', $now)
+        ->where('lelang_finished', '>', $now)
+        ->where('status', 'verified')
+        ->get();
     }
 
 }
