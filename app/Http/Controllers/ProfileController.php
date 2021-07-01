@@ -46,6 +46,9 @@ class ProfileController extends Controller
                 $user->photo = asset('storage/barangku/' . $file_name);
             }
 
+            $user->verified = 0;
+            $user->admin_id = null;
+
             $user->save();
 
             return redirect()
