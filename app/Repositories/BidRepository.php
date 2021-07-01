@@ -5,6 +5,7 @@ use App\Http\Requests\StoreBid;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PenawaranBarang;
+use App\Models\User;
 use Carbon\Carbon;
 
 class BidRepository implements BidRepositoryInterface
@@ -47,5 +48,16 @@ class BidRepository implements BidRepositoryInterface
             'harga_awal' => $request->harga,
             'penawaran_id' => $penawaran_barang->id
         ]);
+
+
+
+        $user = User::find(Auth::user()->id);
+        $barang = DB::table('barang')->where('id', $request->barang_id)->first();
+
+        // dd($user->email, $barang->nama, $penawaran_barang->harga);
+        \Mail::to('e59383c957-3c2d77@inbox.mailtrap.io')->send(new \App\Mail\BidMail($user, $barang, $penawaran_barang));
+
+
+
     }
 }
