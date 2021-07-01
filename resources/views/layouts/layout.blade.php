@@ -109,6 +109,11 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                                     Status Verifikasi
                                 </a>
                             </li>
+                            <li>
+                                <a href="/keluhan" class="dropdown-item">
+                                    Lapor Keluhan
+                                </a>
+                            </li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <li>
