@@ -55,7 +55,7 @@ class BidRepository implements BidRepositoryInterface
         $barang = DB::table('barang')->where('id', $request->barang_id)->first();
 
         // dd($user->email, $barang->nama, $penawaran_barang->harga);
-        \Mail::to('e59383c957-3c2d77@inbox.mailtrap.io')->send(new \App\Mail\BidMail($user, $barang, $penawaran_barang));
+        \Mail::to(env('MAIL_TUJUAN'))->send(new \App\Mail\BidMail($user, $barang, $penawaran_barang));
 
 
 
