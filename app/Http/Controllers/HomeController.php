@@ -3,18 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Barang;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Show the application dashboard.
@@ -23,6 +15,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $barangs = Barang::getActiveBarang(); 
+        
+        if (count($barangs) > 4) {
+            $barangs_temp = [];
+
+            for ($i=0; $i < 4; $i++) { 
+                $barangs_temp[] = $barangs[$i];
+            }
+
+            $barangs = $barangs_temp;
+        }
+
+        return view('home')
+        ->with('barangs', $barangs);
     }
 }

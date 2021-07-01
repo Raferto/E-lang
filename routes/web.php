@@ -14,9 +14,7 @@ use App\Http\Controllers;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [Controllers\HomeController::class, 'index'])->name('home');
 
 Route::prefix('lelang')->name('lelang.')->group(function () {
     Route::get('/', [Controllers\PelelanganController::class, 'index'])->name('index');
