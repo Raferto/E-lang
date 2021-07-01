@@ -40,6 +40,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', [Controllers\BarangkuController::class, 'index'])->name('index');
         Route::get('/show/{id}', [Controllers\BarangkuController::class, 'show'])->name('show');
     });
+
+    Route::prefix('keluhan')->name('keluhan.')->group(function () {
+        Route::get('/', [Controllers\KeluhanController::class, 'showForm'])->name('showForm');
+        Route::post('/', [Controllers\KeluhanController::class, 'create'])->name('create');
+    });
 });
 
 Route::middleware(['auth:admin'])->group(function () {
