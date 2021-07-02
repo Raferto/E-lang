@@ -59,7 +59,7 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                                 @if(Auth::guard("admin")->check())
                                 <li><a href="{{route('klaim-admin.verifikasi')}}" class="dropdown-item">Verifikasi</a></li>
-                                <li><a href="#" class="dropdown-item">Cek Pembayaran</a></li>
+                                <li><a href="{{route('klaim-admin.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
                                 @endif
                             </ul>
                         </li>

@@ -15,14 +15,12 @@
 
 @section('main')
 
-<div class="row justify-content-center">
+<div class="row justify-content-center vh-100">
     <div class="col-md-8">
-        <div class="card">
-            @if (count($pembayaran) < 1) <div class="d-flex justify-content-between align-items-center sc-link">
-                <div>
-                    <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Tidak Ada Pembayaran Baru</p>
-                </div>
-            @endif
+        <div class="card mt-5">
+            @if (count($pembayaran) < 1)
+                <h4 class="py-3" style="text-align: center">Tidak ada pembayaran baru.</h4>
+            @else
 
             <table class="table table-hover">
                 <thead>
@@ -65,9 +63,10 @@
 
 
             </table>
-                <p>
-                    {!! $pembayaran->links() !!}
-                </p>
+            <p>
+                {!! $pembayaran->links() !!}
+            </p>
+            @endif
 
         </div>
     </div>
