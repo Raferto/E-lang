@@ -108,7 +108,11 @@ class KlaimController extends Controller
 
         $pembayaran = Pembayaran::where('id', $request->id)->first();
         $pembayaran->status = 'sudah dibayar';
+        $pembayaran->admin_id = Auth::id();
         $pembayaran->save();
+
+        $this->KlaimRepo->logVerifikasiPebayaran($pembayaran->id, 'accept');
+
         return redirect()->back();
 
     }
@@ -117,7 +121,11 @@ class KlaimController extends Controller
 
         $pembayaran = Pembayaran::where('id', $request->id)->first();
         $pembayaran->status = 'ditolak';
+        $pembayaran->admin_id = Auth::id();
         $pembayaran->save();
+
+        $this->KlaimRepo->logVerifikasiPebayaran($pembayaran->id, 'decline');
+
         return redirect()->back();
 
     }

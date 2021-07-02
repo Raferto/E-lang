@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 use App\Models\Pembayaran;
+use App\Models\PembayaranLog;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -163,5 +164,24 @@ class KlaimRepository implements KlaimRepositoryInterface
                         ->paginate(10);
 
         return $pembayaran;
+    }
+
+    public function logVerifikasiPebayaran($id, $action) {
+
+        $pembayaran = DB::table('pembayaran as p')
+                        ->join('penawaran_barang as pb', 'p.penawaran_id', '=', 'pb.id')
+                        ->join('barang as b', 'pb.barang_id', '=', 'b.id')
+                        ->join('users as u', 'p.user_id', '=', 'u.id')
+                        ->join('admin as a', 'a.id', '=', 'p.admin_id')
+                        ->where('p.id', $id)
+                        ->select('a.nama as nama_admin', 'u.nama as nama_user', 'b.nama as nama_barang')
+                        ->first();
+
+        PembayaranLog::create([
+            'nama_user' => $pembayaran->nama_user,
+            'nama_admin' => $pembayaran->nama_admin,
+            'nama_barang' => $pembayaran->nama_barang,
+            'aksi'  => $action
+        ]);
     }
 }

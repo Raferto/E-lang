@@ -19,4 +19,6 @@ interface KlaimRepositoryInterface
     public function create(Request $request);
 
     public function getPembayaranBaru();
+
+    public function logVerifikasiPebayaran($id, $action);
 }
