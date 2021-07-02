@@ -11,12 +11,17 @@
         margin: 5px;
     }
 
+    #klaim-konten {
+        padding-top: 60px;
+    }
+
 </style>
 @endsection
 
 @section('main')
+<div class="container" id="klaim-konten">
 <div class="card card-solid">
-    <div class="card-body">
+    <div class="card-body mt-5">
         <div class="row">
             <div class="col-12 col-sm-6">
                 <h3 class="d-inline-block d-sm-none">{{$penawaran->nama}}</h3>
@@ -51,7 +56,7 @@
                 <hr>
                 <div class="bg-primary py-2 px-3 mt-4">
                     <h2 class="mb-0">
-                        Harga akhir : Rp {{ number_format($penawaran->harga, 0, ',', '.') }}
+                        Harga akhir : Rp {{ number_format($penawaran->harga, 2, ',', '.') }}
                     </h2>
                 </div>
 
@@ -71,7 +76,7 @@
                                     </div> --}}
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" name="bukti_pembayaran" id="bukti_pembayaran"
-                                            aria-describedby="input_file_bukti">
+                                            aria-describedby="input_file_bukti" accept="image/png, image/jpeg">
                                         <label class="custom-file-label" for="bukti_pembayaran">Bukti Pembayaran</label>
                                     </div>
                                 </div>
@@ -98,6 +103,7 @@
         </div>
     </div>
     <!-- /.card-body -->
+</div>
 </div>
 <!-- /.card -->
 @endsection
