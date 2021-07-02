@@ -184,4 +184,9 @@ class KlaimRepository implements KlaimRepositoryInterface
             'aksi'  => $action
         ]);
     }
+
+    public function getLogVerifikasiPebayaran() {
+
+        return PembayaranLog::orderBy('created_at', 'desc')->paginate(15);
+    }
 }

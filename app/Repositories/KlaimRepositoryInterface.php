@@ -21,4 +21,6 @@ interface KlaimRepositoryInterface
     public function getPembayaranBaru();
 
     public function logVerifikasiPebayaran($id, $action);
+
+    public function getLogVerifikasiPebayaran();
 }
