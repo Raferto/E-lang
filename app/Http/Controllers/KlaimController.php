@@ -129,4 +129,11 @@ class KlaimController extends Controller
         return redirect()->back();
 
     }
+
+    public function logIndex() {
+
+        $log = $this->KlaimRepo->getLogVerifikasiPebayaran();
+
+        return view('admin.pembayaran.log')->with('logs', $log);
+    }
 }

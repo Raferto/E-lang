@@ -82,6 +82,7 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::post('/pembayaran-bukti', [Controllers\KlaimController::class, 'cekBuktiPembayaran'])->name('buktiBayar');
         Route::post('/accept', [Controllers\KlaimController::class, 'acceptPembayaran'])->name('accept');
         Route::post('/decline', [Controllers\KlaimController::class, 'declinePembayaran'])->name('decline');
+        Route::get('/log', [Controllers\KlaimController::class, 'logIndex'])->name('log');
     });
 });
 
