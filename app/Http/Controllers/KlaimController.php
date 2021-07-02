@@ -85,4 +85,40 @@ class KlaimController extends Controller
             dd($e->getMessage());
         }
     }
+
+    public function pembayaranBaru() {
+
+        // ambil semua pembayaran dengan status 'menunggu verifikasi'
+        $pembayaran = $this->KlaimRepo->getPembayaranBaru();
+
+        // dd($pembayaran);
+        return view('admin.pembayaran.new-index')->with('pembayaran', $pembayaran);
+    }
+
+    public function cekBuktiPembayaran(Request $request) {
+
+        $pembayaran = DB::table('pembayaran')->where('id', $request->id)->first();
+
+        // $url = Storage::url('public/bukti_pembayaran/' . $pembayaran->bukti_pembayaran);
+
+        return Storage::download('public/bukti_pembayaran/' . $pembayaran->bukti_pembayaran);
+    }
+
+    public function acceptPembayaran(Request $request) {
+
+        $pembayaran = Pembayaran::where('id', $request->id)->first();
+        $pembayaran->status = 'sudah dibayar';
+        $pembayaran->save();
+        return redirect()->back();
+
+    }
+
+    public function declinePembayaran(Request $request) {
+
+        $pembayaran = Pembayaran::where('id', $request->id)->first();
+        $pembayaran->status = 'ditolak';
+        $pembayaran->save();
+        return redirect()->back();
+
+    }
 }

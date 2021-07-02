@@ -54,6 +54,15 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                         @endif
                         @if(Auth::guard('admin')->check())
                         <a href="{{route('user-verification.index')}}" class="nav-link">Verifikasi Akun</a>
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pembayaran</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                @if(Auth::guard("admin")->check())
+                                <li><a href="{{route('klaim-admin.verifikasi')}}" class="dropdown-item">Verifikasi</a></li>
+                                <li><a href="#" class="dropdown-item">Cek Pembayaran</a></li>
+                                @endif
+                            </ul>
+                        </li>
                         @endif
                     </ul>
 

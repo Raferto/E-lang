@@ -76,6 +76,13 @@ Route::middleware(['auth:admin'])->group(function () {
         Route::get('/accept/{id}', [Controllers\Admin\BarangController::class, 'accept'])->name('accept');
         Route::get('/decline/{id}', [Controllers\Admin\BarangController::class, 'decline'])->name('decline');
     });
+
+    Route::prefix('klaim')->name('klaim-admin.')->group(function () {
+        Route::get('/verifikasi', [Controllers\KlaimController::class, 'pembayaranBaru'])->name('verifikasi');
+        Route::post('/pembayaran-bukti', [Controllers\KlaimController::class, 'cekBuktiPembayaran'])->name('buktiBayar');
+        Route::post('/accept', [Controllers\KlaimController::class, 'acceptPembayaran'])->name('accept');
+        Route::post('/decline', [Controllers\KlaimController::class, 'declinePembayaran'])->name('decline');
+    });
 });
 
 require __DIR__ . '/auth.php';
