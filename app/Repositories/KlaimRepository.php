@@ -145,9 +145,23 @@ class KlaimRepository implements KlaimRepositoryInterface
             'user_id' => $user_id, // ambil dari session
             'penawaran_id' => $request->penawaran_id, // ambil dari request
             'status' => 'menunggu verifikasi', // isi status yang bener
-            'bukti_pembayaran' => asset('storage/bukti_pembayaran/' . $file_name),
+            // 'bukti_pembayaran' => asset('storage/bukti_pembayaran/' . $file_name),
+            'bukti_pembayaran' => $file_name,
             'deadline' => Carbon::now()->addDays(7)->toDateTimeString(),
         ]);
 
+    }
+
+    public function getPembayaranBaru() {
+
+        $pembayaran = DB::table('pembayaran as p')
+                        ->join('penawaran_barang as pb', 'p.penawaran_id', '=', 'pb.id')
+                        ->join('barang as b', 'pb.barang_id', '=', 'b.id')
+                        ->join('users as u', 'p.user_id', '=', 'u.id')
+                        ->where('p.status', 'menunggu verifikasi')
+                        ->select('p.id as pembayaran_id', 'u.nama as nama_user', 'b.nama as nama_barang', 'pb.harga as harga', 'p.created_at as tgl_submit', 'p.bukti_pembayaran')
+                        ->paginate(10);
+
+        return $pembayaran;
     }
 }

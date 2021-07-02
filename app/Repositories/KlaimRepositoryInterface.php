@@ -17,4 +17,6 @@ interface KlaimRepositoryInterface
     public function createAPI(Request $request);
 
     public function create(Request $request);
+
+    public function getPembayaranBaru();
 }
