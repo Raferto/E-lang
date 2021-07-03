@@ -19,9 +19,11 @@ class PelelanganController extends Controller
     public function index()
     {
         $barangs = $this->SearchRepo->index();
+        $kategoris = $this->SearchRepo->kategory();
         // dd($barangs);
         return view('lelang.index')
-            ->with('barangs', $barangs);
+            ->with('barangs', $barangs)
+            ->with('kategoris', $kategoris);
     }
 
     public function search(Search $request)
@@ -30,11 +32,13 @@ class PelelanganController extends Controller
         // dump($keyword);
         // dump($request);
         $barangs = $this->SearchRepo->search($request);
+        $kategoris = $this->SearchRepo->kategory();
 
 
         return view('lelang.index')
             ->with('barangs', $barangs)
-            ->with('keyword', $keyword);
+            ->with('keyword', $keyword)
+            ->with('kategoris', $kategoris);;
     }
 
     public function show(Request $request, $id)

@@ -53,7 +53,16 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                         <a href="{{route('barangku.index')}}" class="nav-link">Barangku</a>
                         @endif
                         @if(Auth::guard('admin')->check())
-                        <a href="{{route('user-verification.index')}}" class="nav-link">Verifikasi Akun</a>
+                        <!-- <a href="{{route('user-verification.index')}}" class="nav-link">Verifikasi Akun</a> -->
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Verifikasi Akun</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                @if(Auth::guard("admin")->check())
+                                <li><a href="{{route('user-verification.index')}}" class="dropdown-item">Verifikasi</a></li>
+                                <li><a href="{{route('user-verification.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
+                                @endif
+                            </ul>
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pembayaran</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -71,6 +80,21 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                         <div class="input-group input-group-sm">
                             <input class="form-control form-control-navbar" name="search" type="search" placeholder="Search" aria-label="Search" value="{{ isset($keyword) ? $keyword : old('keyword') }}">
                             <div class="input-group-append">
+                                <!-- <div class="dropdown"> -->
+                                <button class="btn btn-navbar dropdown-toggle" data-toggle="dropdown" type="button">
+                                    <i class="fas fa-filter"></i>
+                                </button>
+                                <div class="row form-inline border rounded p-sm-2 my-2 dropdown-menu " style="max-height: 200px; overflow-y: scroll;">
+                                    <li class="dropdown-header" style="text-align: start;font-Weight:bold;">Kategori</li>
+                                    @if (isset($kategoris))
+                                    @foreach ($kategoris as $kategori)
+                                    <label for="{{$kategori->nama}}" class="justify-content-start"><input type="checkbox" name="kategori[]" id="{{$kategori->nama}}" value="{{$kategori->nama}}" style="margin: 10px;">{{$kategori->nama}}</label>
+
+                                    @endforeach
+                                    @endif
+
+                                </div>
+                                <!-- </div> -->
                                 <button class="btn btn-navbar" type="submit">
                                     <i class="fas fa-search"></i>
                                 </button>
@@ -100,11 +124,11 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                     @endif
 
                     @if (\App\Libraries\AuthHelper::check())
-                        @if (isset(\App\Libraries\AuthHelper::user()->photo) && \App\Libraries\AuthHelper::user()->photo)
-                            <img src="{{\App\Libraries\AuthHelper::user()->photo}}" class="img-circle elevation-2" width="40" height="40" alt="User Image">
-                        @else
-                            <img src="{{asset('asset/default_user.jpg')}}" class="img-circle elevation-2" width="40" height="40" alt="User Image">
-                        @endif
+                    @if (isset(\App\Libraries\AuthHelper::user()->photo) && \App\Libraries\AuthHelper::user()->photo)
+                    <img src="{{\App\Libraries\AuthHelper::user()->photo}}" class="img-circle elevation-2" width="40" height="40" alt="User Image">
+                    @else
+                    <img src="{{asset('asset/default_user.jpg')}}" class="img-circle elevation-2" width="40" height="40" alt="User Image">
+                    @endif
                     <li class="nav-item dropdown">
                         <a id="dropdownSubMenu3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">{{\App\Libraries\AuthHelper::user()->nama}}</a>
                         <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
@@ -175,8 +199,8 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
             <!-- Main content -->
             {{-- <div class="content">
                 <div class="container"> --}}
-                    @yield('main')
-                {{-- </div><!-- /.container-fluid -->
+            @yield('main')
+            {{-- </div><!-- /.container-fluid -->
             </div> --}}
             <!-- /.content -->
         </div>

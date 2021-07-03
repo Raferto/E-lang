@@ -8,10 +8,18 @@ use App\Mail\VerifAccount;
 use App\Mail\NotVerifAccount;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use App\Repositories\SearchRepositoryInterface;
 use Illuminate\Http\Request;
 
 class UserVerificationController extends Controller
 {
+    private $SearchRepo;
+
+    public function __construct(SearchRepositoryInterface $SearchRepo)
+    {
+        $this->SearchRepo = $SearchRepo;
+    }
+
     public function index(Request $request)
     {
         $users = DB::table('users')
@@ -49,6 +57,8 @@ class UserVerificationController extends Controller
         //     $message->from('e.lang@elang.com', 'Account');
         // });
 
+        $this->SearchRepo->LogVerifikasiAccount($id, 'accept');
+
         return 'Email sent Successfully';
     }
 
@@ -76,6 +86,16 @@ class UserVerificationController extends Controller
         //     $message->from('e.lang@elang.com', 'Account');
         // });
 
+        $this->SearchRepo->LogVerifikasiAccount($id, 'decline');
+
         return 'Email sent Successfully';
+    }
+
+    public function logIndex()
+    {
+
+        $log = $this->SearchRepo->getLogVerifikasiAccount();
+
+        return view('admin.account.log')->with('logs', $log);
     }
 }

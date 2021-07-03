@@ -13,8 +13,9 @@
 @endsection
 
 @section('main')
+
 <div class="row justify-content-center">
-    <div class="col-md-8">
+    <div class="col-md-8" style="margin-top: 20px;">
         <p>Page {{ $barangs->currentPage() }} of {{ $barangs->lastPage() }}</p>
         <ul class="list-group">
             @foreach ($barangs as $barang)
@@ -38,6 +39,7 @@
                 <div>
                     @if (isset($keyword))
                     <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Tidak Ada Barang Yang Sesuai Dengan Kata Kunci {{'"'.$keyword.'"'}}</p>
+                    @else <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Tidak Ada Barang Yang Sesuai</p>
                     @endif
                 </div>
                 @endif
@@ -56,5 +58,10 @@
 @section('js')
 <script>
     console.log("{{ $barangs->links() }}");
+</script>
+
+<script>
+    // $ {".kategori"}.on('change')
+    // var barang = {{$barangs}};
 </script>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Barang;
+use App\Repositories\SearchRepositoryInterface;
 
 class HomeController extends Controller
 {
@@ -13,14 +14,21 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+    private $SearchRepo;
+
+    public function __construct(SearchRepositoryInterface $SearchRepo)
+    {
+        $this->SearchRepo = $SearchRepo;
+    }
     public function index()
     {
-        $barangs = Barang::getActiveBarang(); 
-        
+        $barangs = Barang::getActiveBarang();
+        $kategoris = $this->SearchRepo->kategory();
         if (count($barangs) > 4) {
             $barangs_temp = [];
 
-            for ($i=0; $i < 4; $i++) { 
+            for ($i = 0; $i < 4; $i++) {
                 $barangs_temp[] = $barangs[$i];
             }
 
@@ -28,6 +36,7 @@ class HomeController extends Controller
         }
 
         return view('home')
-        ->with('barangs', $barangs);
+            ->with('barangs', $barangs)
+            ->with('kategoris', $kategoris);
     }
 }
