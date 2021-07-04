@@ -148,14 +148,25 @@ class KlaimRepository implements KlaimRepositoryInterface
         // sudah dibayar
         // ditolak
 
-        Pembayaran::create([
-            'user_id' => $user_id, // ambil dari session
-            'penawaran_id' => $request->penawaran_id, // ambil dari request
-            'status' => 'menunggu verifikasi', // isi status yang bener
-            // 'bukti_pembayaran' => asset('storage/bukti_pembayaran/' . $file_name),
-            'bukti_pembayaran' => $file_name,
-            'deadline' => Carbon::now()->addDays(7)->toDateTimeString(),
-        ]);
+        $pembayaran_exist = Pembayaran::where('penawaran_id', $request->penawaran_id)->first();
+
+        if($pembayaran_exist === null) {
+            Pembayaran::create([
+                'user_id' => $user_id, // ambil dari session
+                'penawaran_id' => $request->penawaran_id, // ambil dari request
+                'status' => 'menunggu verifikasi', // isi status yang bener
+                // 'bukti_pembayaran' => asset('storage/bukti_pembayaran/' . $file_name),
+                'bukti_pembayaran' => $file_name,
+                'deadline' => Carbon::now()->addDays(7)->format('Y-m-d'),
+            ]);
+        } else {
+            $pembayaran_exist->status = 'menunggu verifikasi';
+            $pembayaran_exist->bukti_pembayaran = $file_name;
+            $pembayaran_exist->deadline = Carbon::now()->addDays(7)->format('Y-m-d');
+            $pembayaran_exist->save();
+        }
+
+
     }
 
     public function getPembayaranBaru()
