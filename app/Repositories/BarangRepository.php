@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use App\Models\Barang;
+use App\Models\BarangLog;
 use App\Http\Requests\StoreBarang;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -57,4 +58,27 @@ class BarangRepository implements BarangRepositoryInterface
             dd($e->getMessage());
         }
     }
+
+    public function logVerifikasiBarang($id, $action)
+    {
+        $admin_id = Auth::user()->id;
+        
+        // $barang = DB::table('Barang')
+        //     ->update(['admin_id' => $admin_id])
+        //     ->where('id', $id)
+        //     ->first();
+
+        BarangLog::create([
+            'barang_id' => $id,
+            'admin_id' => $admin_id,
+            'aksi'  => $action
+        ]);
+    }
+
+    public function getLogVerifikasiBarang()
+    {
+
+        return BarangLog::orderBy('created_at', 'desc')->paginate(15);
+    }
+
 }

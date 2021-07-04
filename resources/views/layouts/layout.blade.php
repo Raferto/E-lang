@@ -53,13 +53,21 @@ $is_authenticated = \App\Libraries\AuthHelper::check();
                         <a href="{{route('barangku.index')}}" class="nav-link">Barangku</a>
                         @endif
                         @if(Auth::guard('admin')->check())
-                        <!-- <a href="{{route('user-verification.index')}}" class="nav-link">Verifikasi Akun</a> -->
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Verifikasi Akun</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                                 @if(Auth::guard("admin")->check())
                                 <li><a href="{{route('user-verification.index')}}" class="dropdown-item">Verifikasi</a></li>
                                 <li><a href="{{route('user-verification.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Verifikasi Barang</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                @if(Auth::guard("admin")->check())
+                                <li><a href="{{route('verif-barang.index')}}" class="dropdown-item">Verifikasi</a></li>
+                                <li><a href="{{route('verif-barang.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
                                 @endif
                             </ul>
                         </li>

@@ -73,6 +73,7 @@ Route::middleware(['auth:admin'])->group(function () {
 
     Route::prefix('verif-barang')->name('verif-barang.')->group(function () {
         Route::get('/', [Controllers\Admin\BarangController::class, 'index'])->name('index');
+        Route::get('/log', [Controllers\Admin\BarangController::class, 'logIndex'])->name('log');
         Route::get('/{id}', [Controllers\Admin\BarangController::class, 'show'])->name('show');
         Route::get('/accept/{id}', [Controllers\Admin\BarangController::class, 'accept'])->name('accept');
         Route::get('/decline/{id}', [Controllers\Admin\BarangController::class, 'decline'])->name('decline');
