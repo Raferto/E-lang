@@ -61,12 +61,14 @@ class SearchRepository implements SearchRepositoryInterface
                 ->where('barang.nama', 'like', "%" . $request->search . "%")
                 ->where('lelang_start', '<', Carbon::now())
                 ->where('lelang_finished', '>', Carbon::now())
+                ->where('status', 'verified')
                 ->paginate(5);
         } else {
             $barangs = DB::table('barang')
                 ->where('barang.nama', 'like', "%" . $request->search . "%")
                 ->where('lelang_start', '<', Carbon::now())
                 ->where('lelang_finished', '>', Carbon::now())
+                ->where('status', 'verified')
                 ->join('termasuk', 'barang.id', '=', 'termasuk.barang_id')
                 ->join('kategori', 'kategori.id', '=', 'termasuk.barang_id')
                 ->whereExists(function ($query) {

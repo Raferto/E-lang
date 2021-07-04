@@ -31,6 +31,16 @@ class UserVerificationController extends Controller
             ->with('users', $users);
     }
 
+    public function show(Request $request)
+    {
+        $user = DB::table('users')
+            ->where('id', $request->id)
+            ->first();
+
+        return view('admin.show')
+            ->with('user', $user);
+    }
+
     public function send(Request $request, $id)
     {
         $user = DB::table('users')
@@ -43,6 +53,12 @@ class UserVerificationController extends Controller
                 'verified' => 1,
                 'admin_id' => Auth::guard('admin')->id()
             ]);
+
+        $users = DB::table('users')
+            ->where('verified', 0)
+            ->whereNull('admin_id')
+            ->paginate(5);
+
         $to_name = $user->nama;
         $to_email = $user->email;
         // dd($user);
@@ -58,8 +74,11 @@ class UserVerificationController extends Controller
         // });
 
         $this->SearchRepo->LogVerifikasiAccount($id, 'accept');
-
-        return 'Email sent Successfully';
+        $message = "Berhasil memverifikasi user ";
+        return view('admin.verify-account')
+            ->with('users', $users)
+            ->with('user', $user)
+            ->with('message', $message);
     }
 
     public function decl(Request $request, $id)
@@ -67,6 +86,11 @@ class UserVerificationController extends Controller
         $user = DB::table('users')
             ->where('id', $id)
             ->first();
+
+        $users = DB::table('users')
+            ->where('verified', 0)
+            ->whereNull('admin_id')
+            ->paginate(5);
 
         $update = DB::table('users')
             ->where('id', $id)
@@ -88,7 +112,11 @@ class UserVerificationController extends Controller
 
         $this->SearchRepo->LogVerifikasiAccount($id, 'decline');
 
-        return 'Email sent Successfully';
+        $message = "Berhasil memverifikasi user ";
+        return view('admin.verify-account')
+            ->with('users', $users)
+            ->with('user', $user)
+            ->with('message', $message);
     }
 
     public function logIndex()

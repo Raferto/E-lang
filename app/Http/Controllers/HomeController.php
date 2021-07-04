@@ -36,7 +36,7 @@ class HomeController extends Controller
         }
 
         return view('home')
-            ->with('barangs', $barangs)
-            ->with('kategoris', $kategoris);
+            ->with('barangs', $barangs);
+        // ->with('kategoris', $kategoris);
     }
 }

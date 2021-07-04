@@ -13,9 +13,15 @@
 @endsection
 
 @section('main')
-
 <div class="row justify-content-center">
     <div class="col-md-8">
+        @if (isset($message))
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h5><i class="icon fas fa-check"></i> Alert!</h5>
+            {{$message}} {{$user->nama}}
+        </div>
+        @endif
         <p>Page {{ $users->currentPage() }} of {{ $users->lastPage() }}</p>
         <ul class="list-group">
             @foreach ($users as $user)
@@ -31,12 +37,15 @@
                         <div style="margin-left:10px;">{{ $user->nomor_telpon }}</div>
                     </div>
                     <div class="col-2 d-flex align-items-right">
-                        <a style="margin-right: 10px;" href="{{route('user-verification.send', ['id' => $user->id])}}" class="btn btn-primary">
+                        <a style="margin-right: 10px; max-height:40px" href="{{route('user-verification.show', ['id' => $user->id])}}" class="btn btn-primary">
+                            Show
+                        </a>
+                        <!-- <a style="margin-right: 10px;" href="{{route('user-verification.send', ['id' => $user->id])}}" class="btn btn-primary">
                             Accept
                         </a>
                         <a href="{{route('user-verification.decl', ['id' => $user->id])}}" class="btn btn-primary">
                             Decline
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </li>

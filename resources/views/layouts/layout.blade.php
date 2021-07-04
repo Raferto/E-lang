@@ -14,7 +14,9 @@
 </head>
 @php
 $is_authenticated = \App\Libraries\AuthHelper::check();
+$kategoris = \App\Models\Kategori::getKategori();
 @endphp
+
 
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">

@@ -55,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth:admin'])->group(function () {
     Route::prefix('user-verification')->name('user-verification.')->group(function () {
         Route::get('/', [Controllers\Admin\UserVerificationController::class, 'index'])->name('index');
+        Route::get('/show', [Controllers\Admin\UserVerificationController::class, 'show'])->name('show');
         Route::get('/send/{id}', [Controllers\Admin\UserVerificationController::class, 'send'])->name('send');
         Route::get('/decl/{id}', [Controllers\Admin\UserVerificationController::class, 'decl'])->name('decl');
         Route::get('/log', [Controllers\Admin\UserVerificationController::class, 'logIndex'])->name('log');
