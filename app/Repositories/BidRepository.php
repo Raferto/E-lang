@@ -31,12 +31,7 @@ class BidRepository implements BidRepositoryInterface
         if (!$this->checkIfBidIsBigger($request->barang_id, $request->harga))
             throw new \Exception("Harga Lebih Rendah atau Sama dari Penawaran Sebelumnya", 1);
 
-        $penawaran_barang = PenawaranBarang::where('barang_id', $request->barang_id)
-        ->where('user_id', Auth::id())
-        ->first();
-
-        if (!$penawaran_barang) $penawaran_barang = new PenawaranBarang;
-
+        $penawaran_barang = new PenawaranBarang;
         $penawaran_barang->barang_id = $request->barang_id;
         $penawaran_barang->harga = $request->harga;
         $penawaran_barang->user_id = Auth::id();
@@ -48,7 +43,6 @@ class BidRepository implements BidRepositoryInterface
             'harga_awal' => $request->harga,
             'penawaran_id' => $penawaran_barang->id
         ]);
-
 
 
         $user = User::find(Auth::user()->id);
