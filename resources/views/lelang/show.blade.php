@@ -34,7 +34,7 @@
               </div>
 
               @auth
-              @if (auth()->user()->verified)
+              @if (auth()->user()->verified && auth()->user()->id != $barang->user_id)
               <div class="mt-4">
                 <form class="" action="{{route('bid.create')}}" method="POST">
                     @csrf
