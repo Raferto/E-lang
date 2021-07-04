@@ -56,8 +56,12 @@ class BidRepository implements BidRepositoryInterface
 
         // dd($user->email, $barang->nama, $penawaran_barang->harga);
         \Mail::to(env('MAIL_TUJUAN'))->send(new \App\Mail\BidMail($user, $barang, $penawaran_barang));
-
-
-
     }
+
+    public function getByBarang($barang_id) {
+        return PenawaranBarang::where('barang_id', $barang_id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
+    }
+
 }

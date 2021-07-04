@@ -14,14 +14,17 @@ use App\Interfaces\QRCodeInterface;
 use App\Models\Barang;
 use App\Http\Requests\StoreBarang;
 use App\Repositories\BarangRepositoryInterface;
+use App\Repositories\BidRepositoryInterface;
 
 class BarangkuController extends Controller
 {
     private $barangRepository;
+    private $bidRepository;
 
-    public function __construct(QRCodeInterface $qrcode_service, BarangRepositoryInterface $barangRepository) {
+    public function __construct(QRCodeInterface $qrcode_service, BarangRepositoryInterface $barangRepository, BidRepositoryInterface $bidRepository) {
         $this->barangRepository = $barangRepository;
         $this->qrcode_service = $qrcode_service;
+        $this->bidRepository = $bidRepository;
     }
 
     public function index(){
@@ -38,9 +41,18 @@ class BarangkuController extends Controller
             $barang->nama . '|' . $barang->deskripsi . '|' . $barang->harga_awal . '|' . $barang->lelang_start . $barang->lelang_finished . '|' . $barang->status
         );
 
-        return view('barangku.show')
-        ->with('barang', $barang)
-        ->with('qrcode', $qrcode);
+        if( $barang->status = "verified" && $barang->lelang_start <= Carbon::now() ){
+            $penawaranBarang = $this->bidRepository->getByBarang($id);
+            return view('barangku.show')
+                ->with('barang', $barang)
+                ->with('penawaranBarang', $penawaranBarang)
+                ->with('qrcode', $qrcode);
+        }
+        else
+            return view('barangku.show')
+            ->with('barang', $barang)
+            ->with('qrcode', $qrcode);
+
     }
 
     public function form(){

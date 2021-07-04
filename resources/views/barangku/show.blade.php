@@ -54,10 +54,37 @@
 				<label for="lelang_finished">Selesai Lelang</label>
 				<input type="datetime" name="lelang_finished" class="form-control" value="{{$barang->lelang_finished}}" readonly/>
 			</div>
-
 		</div>
       </div>
+
+		@if( isset($penawaranBarang) )
+			<div class="row justify-content-center vh-10">
+				<div class="col-md-8">
+					<label>Penawaran</label>
+					<div class="card mt-2">
+						<table class="table table-hover table-sm">
+							<thead>
+								<th scope="col">Harga Tawar</th>
+								<th scope="col">Waktu</th>
+							</thead>
+							<tbody>
+								@foreach ($penawaranBarang as $item)
+									<tr>
+										<td style="vertical-align: middle;">{{ $item->harga }}</td>
+										<td style="vertical-align: middle;">{{ $item->created_at }}</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+						<p>
+							{!! $penawaranBarang->links() !!}
+						</p>
+					</div>
+				</div>
+			</div>
+		@endif
 	</div>
+
 @endsection
 
 @section('js')

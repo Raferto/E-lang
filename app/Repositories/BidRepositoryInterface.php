@@ -9,4 +9,6 @@ interface BidRepositoryInterface
     public function getAll();
 
     public function create(StoreBid $request);
+
+    public function getByBarang($barang_id);
 }

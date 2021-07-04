@@ -16,9 +16,6 @@
 
 <div class="row justify-content-center vh-100">
     <div class="col-md-8">
-        <p>
-            {!! $logs->links() !!}
-        </p>
         <div class="card mt-5">
             @if (count($logs) < 1) <h4 class="py-3" style="text-align: center">Tidak ada riwayat verifikasi account.</h4>
             @else
@@ -51,7 +48,10 @@
                         @endforeach
                     </tbody>
                 </table>
-                @endif
+                <p>
+                    {!! $logs->links() !!}
+                </p>
+            @endif
 
         </div>
     </div>

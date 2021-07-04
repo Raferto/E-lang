@@ -15,10 +15,12 @@
 @section('main')
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <p>
-                <!-- Page {{ $barang->currentPage() }} of {{ $barang->lastPage() }} -->
-                {!! $barang->links() !!}
-            </p>
+            <div style="margin:2vh 2vh 5vh 2vh">
+                @if ( auth()->user()->verified )
+                    <a href="{{route('barangku.form')}}" class="btn btn-primary" style="position: absolute; right: 1vh;">Create</a>
+                @endif
+                Page {{ $barang->currentPage() }} of {{ $barang->lastPage() }}
+            </div>
             <ul class="list-group">
                 @foreach ($barang as $b)
                     <a href="{{route('barangku.show', ['id' => $b->id])}}" >
@@ -39,6 +41,7 @@
                             <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Tidak Ada Barang</p>
                         </div>
                         @endif
+                    {!! $barang->links() !!}
             </ul>
         </div>
     </div>

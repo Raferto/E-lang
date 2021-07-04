@@ -55,7 +55,7 @@ class BarangController extends Controller
 
         $this->barangRepo->LogVerifikasiBarang($id, 'verified');
 
-        // Mail::to($to_email)->send(new VerifBarang($user, $barang));
+        Mail::to($to_email)->send(new VerifBarang($user, $barang));
 
 
         return redirect()
@@ -82,7 +82,7 @@ class BarangController extends Controller
         
         $this->barangRepo->LogVerifikasiBarang($id, 'decline');
 
-        // Mail::to($to_email)->send(new VerifBarang($user, $barang));
+        Mail::to($to_email)->send(new VerifBarang($user, $barang));
 
         return redirect()
         ->route('verif-barang.index');

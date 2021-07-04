@@ -16,8 +16,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <p>
-                <!-- Page {{ $barangs->currentPage() }} of {{ $barangs->lastPage() }} -->
-                {!! $barangs->links() !!}
+                Page {{ $barangs->currentPage() }} of {{ $barangs->lastPage() }}
             </p>
             <ul class="list-group">
                 @foreach ($barangs as $b)
@@ -39,6 +38,7 @@
                             <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Tidak Ada Barang</p>
                         </div>
                         @endif
+                    {!! $barangs->links() !!}
             </ul>
         </div>
     </div>
