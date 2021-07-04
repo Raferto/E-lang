@@ -32,7 +32,7 @@
                             <td style="vertical-align: middle;">{{ $item->barang_id }}</td>
                             <td style="vertical-align: middle;">{{ $item->admin_id }}</td>
                             <td style="vertical-align: middle;">
-                                @if ($item->aksi == 'accepted')
+                                @if ($item->aksi == 'verified')
                                 <span class="badge badge-success">Verifikasi account diterima</span>
                                 @else
                                 <span class="badge badge-danger">Verifikasi account ditolak</span>
