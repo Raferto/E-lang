@@ -45,11 +45,11 @@ class BidRepository implements BidRepositoryInterface
         ]);
 
 
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
         $barang = DB::table('barang')->where('id', $request->barang_id)->first();
 
         // dd($user->email, $barang->nama, $penawaran_barang->harga);
-        \Mail::to(env('MAIL_TUJUAN'))->send(new \App\Mail\BidMail($user, $barang, $penawaran_barang));
+        \Mail::to($user->email)->send(new \App\Mail\BidMail($user, $barang, $penawaran_barang));
     }
 
     public function getByBarang($barang_id) {
