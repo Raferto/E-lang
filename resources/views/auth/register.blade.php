@@ -8,6 +8,13 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        @if (isset($exception))
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> Peringantan!</h5>
+            {{$exception}}
+        </div>
+        @endif
 
         <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
             @csrf
