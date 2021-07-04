@@ -15,16 +15,21 @@ use App\Models\Barang;
 use App\Http\Requests\StoreBarang;
 use App\Repositories\BarangRepositoryInterface;
 use App\Repositories\BidRepositoryInterface;
+use App\Repositories\KlaimRepositoryInterface;
+
+use App\Models\Pembayaran;
 
 class BarangkuController extends Controller
 {
     private $barangRepository;
     private $bidRepository;
+    private $klaimRepository;
 
-    public function __construct(QRCodeInterface $qrcode_service, BarangRepositoryInterface $barangRepository, BidRepositoryInterface $bidRepository) {
+    public function __construct(QRCodeInterface $qrcode_service, BarangRepositoryInterface $barangRepository, BidRepositoryInterface $bidRepository, KlaimRepositoryInterface $klaimRepository) {
         $this->barangRepository = $barangRepository;
         $this->qrcode_service = $qrcode_service;
         $this->bidRepository = $bidRepository;
+        $this->klaimRepository = $klaimRepository;
     }
 
     public function index(){
@@ -41,17 +46,34 @@ class BarangkuController extends Controller
             $barang->nama . '|' . $barang->deskripsi . '|' . $barang->harga_awal . '|' . $barang->lelang_start . $barang->lelang_finished . '|' . $barang->status
         );
 
-        if( $barang->status = "verified" && $barang->lelang_start <= Carbon::now() ){
-            $penawaranBarang = $this->bidRepository->getByBarang($id);
+        $now = Carbon::now();
+        if( !($barang->status == "verified" && $barang->lelang_start <= $now) )
+            return view('barangku.show')
+            ->with('barang', $barang)
+            ->with('qrcode', $qrcode)
+            ->with('pembayaran', false);
+        
+        $penawaranBarang = $this->bidRepository->getByBarang($id);
+
+        if( $barang->lelang_finished > $now || \count($penawaranBarang) == 0)
+        return view('barangku.show')
+        ->with('barang', $barang)
+        ->with('penawaranBarang', $penawaranBarang)
+        ->with('pembayaran', false)
+        ->with('qrcode', $qrcode);
+        
+        if( $this->klaimRepository->getPembayaran( $penawaranBarang[0]->id )->status == "sudah dibayar" )
             return view('barangku.show')
                 ->with('barang', $barang)
                 ->with('penawaranBarang', $penawaranBarang)
-                ->with('qrcode', $qrcode);
-        }
+                ->with('qrcode', $qrcode)
+                ->with('pembayaran', true);
         else
             return view('barangku.show')
             ->with('barang', $barang)
-            ->with('qrcode', $qrcode);
+            ->with('penawaranBarang', $penawaranBarang)
+            ->with('qrcode', $qrcode)
+            ->with('pembayaran', false);
 
     }
 
