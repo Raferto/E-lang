@@ -29,10 +29,11 @@ class BarangController extends Controller
     }
 
     public function show(Request $request, $id){
-        $barang = $this->barangRepo->getBarangku($id);
+        $array = $this->barangRepo->getBarangku($id);
 
         return view('admin.barang.show')
-        ->with('barang', $barang);
+        ->with('barang', $array[0])
+        ->with('kategori', $array[1]);
     }
 
     public function accept($id) {

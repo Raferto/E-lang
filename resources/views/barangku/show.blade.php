@@ -50,6 +50,13 @@
 				<input type="text" name="deskripsi" class="form-control" value="{{$barang->deskripsi}}" readonly/>
 			</div>
 
+			@if( $kategori != "" )
+				<div class="form-group">
+					<label for="kategori" style="margin-bottom:0">Kategori</label>
+					<input type="text" name="deskripsi" class="form-control" value="{{$kategori}}" readonly/>
+				</div>
+			@endif
+
 			<div class="form-group">
 				<label for="lelang_start">Mulai Lelang</label>
 				<input type="datetime" name="lelang_start" class="form-control" value="{{$barang->lelang_start}}" readonly/>

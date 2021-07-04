@@ -40,15 +40,18 @@ class BarangkuController extends Controller
     }
 
     public function show(Request $request, $id){
-        $barang = $this->barangRepository->getBarangku($id);
+        $array = $this->barangRepository->getBarangku($id);
+        $barang = $array[0];
         
         $qrcode = $this->qrcode_service->createQRCode(
             $barang->nama . '|' . $barang->deskripsi . '|' . $barang->harga_awal . '|' . $barang->lelang_start . $barang->lelang_finished . '|' . $barang->status
         );
 
+        
         $now = Carbon::now();
         if( !($barang->status == "verified" && $barang->lelang_start <= $now) )
-            return view('barangku.show')
+        return view('barangku.show')
+            ->with('kategori', $array[1])
             ->with('barang', $barang)
             ->with('qrcode', $qrcode)
             ->with('pembayaran', false);
@@ -58,6 +61,7 @@ class BarangkuController extends Controller
         if( $barang->lelang_finished > $now || \count($penawaranBarang) == 0)
         return view('barangku.show')
         ->with('barang', $barang)
+        ->with('kategori', $array[1])
         ->with('penawaranBarang', $penawaranBarang)
         ->with('pembayaran', false)
         ->with('qrcode', $qrcode);
@@ -65,12 +69,14 @@ class BarangkuController extends Controller
         if( $this->klaimRepository->getPembayaran( $penawaranBarang[0]->id )->status == "sudah dibayar" )
             return view('barangku.show')
                 ->with('barang', $barang)
+                ->with('kategori', $array[1])
                 ->with('penawaranBarang', $penawaranBarang)
                 ->with('qrcode', $qrcode)
                 ->with('pembayaran', true);
         else
             return view('barangku.show')
             ->with('barang', $barang)
+            ->with('kategori', $array[1])
             ->with('penawaranBarang', $penawaranBarang)
             ->with('qrcode', $qrcode)
             ->with('pembayaran', false);

@@ -41,6 +41,12 @@
 					</div>
 
 					<div class="form-group">
+						<label for="kategori" style="margin-bottom:0">Kategori</label><br>
+						<small style="margin:0">*seperated by "," without the "</small>
+						<input type="text" name="kategori" class="form-control" value="{{ old('kategori') }}"/>
+					</div>
+
+					<div class="form-group">
 						<label for="lelang_start">Mulai Lelang</label><small class="text-danger">*</small>
 						<input type="datetime-local" name="lelang_start" class="form-control" value="{{old('lelang_start')}}"/>
 						@if ($errors->has('lelang_start'))
