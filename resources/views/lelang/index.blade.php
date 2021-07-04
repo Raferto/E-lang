@@ -39,7 +39,6 @@
                 <div>
                     @if (isset($keyword))
                     <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Tidak Ada Barang Yang Sesuai Dengan Kata Kunci {{'"'.$keyword.'"'}}</p>
-                    @else <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Tidak Ada Barang Yang Sesuai</p>
                     @endif
                 </div>
                 @endif

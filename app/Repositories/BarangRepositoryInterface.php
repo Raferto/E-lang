@@ -11,4 +11,8 @@ interface BarangRepositoryInterface
     public function getBarangku($id);
 
     public function create(StoreBarang $request);
+
+    public function logVerifikasiBarang($id, $action);
+
+    public function getLogVerifikasiBarang();
 }

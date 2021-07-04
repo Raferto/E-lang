@@ -53,17 +53,6 @@
             </div>
             </div>
         </div>
-        {{-- <div class="col-md-6 col-xl-3">
-
-            <div class="block block-link-shadow block-rounded ribbon ribbon-bookmark ribbon-left ribbon-success text-center">
-                <div class="block-content block-content-full">
-                    <div class="font-w600">{{$barang->nama}}</div>
-                </div>
-                <div class="block-content block-content-full block-content-sm bg-body-light">
-                    <div class="font-size-sm text-muted">Jadwal : {{$barang->lelang_start . ' - ' . $barang->lelang_finished}}</div>
-                </div>
-            </div>
-        </div> --}}
     @endforeach
 </div>
 @endsection

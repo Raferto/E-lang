@@ -25,7 +25,7 @@
                     <img src="{{$p->photo}}" class="img img-fluid" style="width:10%;margin-right:5%;" />
                     {{ $p->nama }}
                 </div>
-                <a href="{{route('klaim.show', ['id' => $p->id])}}" class="btn btn-primary">
+                <a href="{{route('klaim.show', ['id' => $p->id])}}" class="btn btn-primary" style="max-height: 38px;">
                 Show
                 </a>
             </li>

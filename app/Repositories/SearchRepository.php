@@ -26,8 +26,8 @@ class SearchRepository implements SearchRepositoryInterface
             ->where('lelang_start', '<', Carbon::now())
             ->where('lelang_finished', '>', Carbon::now())
             ->where('status', 'verified')
-            ->join('termasuk', 'barang.id', '=', 'termasuk.barang_id')
-            ->join('kategori', 'kategori.id', '=', 'termasuk.barang_id')
+            ->leftJoin('termasuk', 'barang.id', '=', 'termasuk.barang_id')
+            ->leftJoin('kategori', 'kategori.id', '=', 'termasuk.barang_id')
             ->select('barang.*', 'kategori.nama as kategori')
             ->paginate(5);
 

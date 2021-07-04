@@ -8,9 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Repositories\BarangRepositoryInterface;
 
 class BarangController extends Controller
 {
+    private $barangRepo;
+
+    public function __construct(BarangRepositoryInterface $barangRepo)
+    {
+        $this->barangRepo = $barangRepo;
+    }
+
     public function index() {
         $barangs = DB::table('barang')
         ->where('status', 'new')
@@ -21,9 +29,7 @@ class BarangController extends Controller
     }
 
     public function show(Request $request, $id){
-        $barang = DB::table('barang')
-        ->where('id', $id)
-        ->first();
+        $barang = $this->barangRepo->getBarangku($id);
 
         return view('admin.barang.show')
         ->with('barang', $barang);
@@ -47,7 +53,10 @@ class BarangController extends Controller
 
         $to_email = $user->email;
 
+        $this->barangRepo->LogVerifikasiBarang($id, 'verified');
+
         Mail::to($to_email)->send(new VerifBarang($user, $barang));
+
 
         return redirect()
         ->route('verif-barang.index');
@@ -70,10 +79,19 @@ class BarangController extends Controller
         ->first();
 
         $to_email = $user->email;
+        
+        $this->barangRepo->LogVerifikasiBarang($id, 'decline');
 
         Mail::to($to_email)->send(new VerifBarang($user, $barang));
 
         return redirect()
         ->route('verif-barang.index');
+    }
+
+    public function logIndex()
+    {
+        $log = $this->barangRepo->getLogVerifikasiBarang();
+
+        return view('admin.barang.log')->with('logs', $log);
     }
 }

@@ -45,23 +45,27 @@ $kategoris = \App\Models\Kategori::getKategori();
                                 <li><a href="{{route('klaim.index')}}" class="dropdown-item">Klaim Barang</a></li>
                                 <li><a href="{{route('bid.index')}}" class="dropdown-item">Barang Ditawar</a></li>
                                 @endif
-                                @if(Auth::guard("admin")->check())
-                                <li><a href="{{route('verif-barang.index')}}" class="dropdown-item">Cek Barang</a></li>
-                                <li><a href="#" class="dropdown-item">Cek Pembayaran</a></li>
-                                @endif
                             </ul>
                         </li>
                         @if(Auth::guard('web')->user())
                         <a href="{{route('barangku.index')}}" class="nav-link">Barangku</a>
                         @endif
                         @if(Auth::guard('admin')->check())
-                        <!-- <a href="{{route('user-verification.index')}}" class="nav-link">Verifikasi Akun</a> -->
                         <li class="nav-item dropdown">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Verifikasi Akun</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                                 @if(Auth::guard("admin")->check())
                                 <li><a href="{{route('user-verification.index')}}" class="dropdown-item">Verifikasi</a></li>
                                 <li><a href="{{route('user-verification.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Verifikasi Barang</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
+                                @if(Auth::guard("admin")->check())
+                                <li><a href="{{route('verif-barang.index')}}" class="dropdown-item">Verifikasi</a></li>
+                                <li><a href="{{route('verif-barang.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
                                 @endif
                             </ul>
                         </li>
@@ -100,8 +104,8 @@ $kategoris = \App\Models\Kategori::getKategori();
                                 <button class="btn btn-navbar" type="submit">
                                     <i class="fas fa-search"></i>
                                 </button>
-                                @if($errors->any())
-                                <a class="text-danger">{{ $errors->first() }}</a>
+                                @if($errors->has('search'))
+                                <a class="text-danger">{{ $errors->first('search') }}</a>
                                 @endif
                             </div>
                         </div>

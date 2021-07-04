@@ -31,12 +31,7 @@ class BidRepository implements BidRepositoryInterface
         if (!$this->checkIfBidIsBigger($request->barang_id, $request->harga))
             throw new \Exception("Harga Lebih Rendah atau Sama dari Penawaran Sebelumnya", 1);
 
-        $penawaran_barang = PenawaranBarang::where('barang_id', $request->barang_id)
-        ->where('user_id', Auth::id())
-        ->first();
-
-        if (!$penawaran_barang) $penawaran_barang = new PenawaranBarang;
-
+        $penawaran_barang = new PenawaranBarang;
         $penawaran_barang->barang_id = $request->barang_id;
         $penawaran_barang->harga = $request->harga;
         $penawaran_barang->user_id = Auth::id();
@@ -50,14 +45,17 @@ class BidRepository implements BidRepositoryInterface
         ]);
 
 
-
-        $user = User::find(Auth::user()->id);
+        $user = Auth::user();
         $barang = DB::table('barang')->where('id', $request->barang_id)->first();
 
         // dd($user->email, $barang->nama, $penawaran_barang->harga);
-        \Mail::to(env('MAIL_TUJUAN'))->send(new \App\Mail\BidMail($user, $barang, $penawaran_barang));
-
-
-
+        \Mail::to($user->email)->send(new \App\Mail\BidMail($user, $barang, $penawaran_barang));
     }
+
+    public function getByBarang($barang_id) {
+        return PenawaranBarang::where('barang_id', $barang_id)
+                ->orderBy('created_at', 'desc')
+                ->paginate(10);
+    }
+
 }

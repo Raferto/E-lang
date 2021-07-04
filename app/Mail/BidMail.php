@@ -31,6 +31,6 @@ class BidMail extends Mailable
      */
     public function build()
     {
-        return $this->from('e.lang@elang.com')->subject('Penawaran Berhasil!')->view('mail.bid.BidMail');
+        return $this->from('e.lang@elang.com')->subject('Penawaran Berhasil!')->view('mail.bid.bidmail');
     }
 }

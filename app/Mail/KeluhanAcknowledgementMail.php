@@ -10,17 +10,18 @@ use Illuminate\Queue\SerializesModels;
 class KeluhanAcknowledgementMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $user, $keluhan;
+    public $user, $keluhan, $penerima;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user, $keluhan)
+    public function __construct($user, $keluhan, $penerima)
     {
         $this->user = $user;
         $this->keluhan = $keluhan;
+        $this->penerima = $penerima;
     }
 
     /**
@@ -30,6 +31,6 @@ class KeluhanAcknowledgementMail extends Mailable
      */
     public function build()
     {
-        return $this->from('e.lang@elang.com')->subject('Keluhan anda telah kami terima')->view('mail.keluhan.ack');
+        return $this->from('e.lang@elang.com')->subject('Keluhan')->view('mail.keluhan.ack');
     }
 }

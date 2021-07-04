@@ -28,8 +28,13 @@ class KeluhanRepository implements KeluhanRepositoryInterface {
 
     public function sendMailAck($keluhan) {
 
+        // kirim notif ke user
         $user = Auth::user();
 
-        \Mail::to(env('MAIL_TUJUAN'))->send(new \App\Mail\KeluhanAcknowledgementMail($user, $keluhan));
+        \Mail::to(env('MAIL_TUJUAN'))->send(new \App\Mail\KeluhanAcknowledgementMail($user, $keluhan, 'user'));
+
+        // kirim keluhan ke admin
+
+        \Mail::to(env('MAIL_TUJUAN'))->send(new \App\Mail\KeluhanAcknowledgementMail($user, $keluhan, 'admin'));
     }
 }

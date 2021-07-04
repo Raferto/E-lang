@@ -15,28 +15,36 @@
 @section('main')
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <a href="{{route('barangku.form')}}" class="btn btn-primary" style="position: absolute; right: 0;">Create</a>
-            <p>Page {{ $barang->currentPage() }} of {{ $barang->lastPage() }}</p>
+            <div style="margin:2vh 2vh 5vh 2vh">
+                @if ( auth()->user()->verified )
+                    <a href="{{route('barangku.form')}}" class="btn btn-primary" style="position: absolute; right: 1vh;">Create</a>
+                @endif
+                Page {{ $barang->currentPage() }} of {{ $barang->lastPage() }}
+            </div>
             <ul class="list-group">
                 @foreach ($barang as $b)
                     <a href="{{route('barangku.show', ['id' => $b->id])}}" >
-                    <li class="list-group-item d-flex justify-content-between"  >
-                        <div>
-                            <img src="{{$b->photo}}" class="img img-fluid" style="width:10vw; display:inline;"/> {{ $b->nama }}
+                    <li class="list-group-item"  >
+                        <div class="row">
+                            <div  class="col-3 d-flex p-2 align-items-left">
+                                <img src="{{$b->photo}}" class="img img-fluid" style="max-width:10vw;max-height:5vw; display:inline;"/>
+                            </div>
+                            <div  class="col-3 d-flex p-2 align-items-left">
+                                <div> {{ $b->nama }} </div>
+                            </div>
                         </div>
                     </li>
                     <a>
                 @endforeach
+                    @if (count($barang) < 1) <div class="d-flex justify-content-between align-items-center sc-link">
+                        <div>
+                            <p class="tx-montserrat tx-semibold mg-b-0 tx-color-02">Tidak Ada Barang</p>
+                        </div>
+                        @endif
+                    {!! $barang->links() !!}
             </ul>
-            <p>
-                {!! $barang->links() !!}
-            </p>
         </div>
     </div>
-<div class="d-flex justify-content-center" style="width:100%;">
-    <p>
-    </p>
-</div>
 @endsection
 
 @section('js')
