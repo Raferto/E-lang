@@ -31,10 +31,10 @@ class KeluhanRepository implements KeluhanRepositoryInterface {
         // kirim notif ke user
         $user = Auth::user();
 
-        \Mail::to(env('MAIL_TUJUAN'))->send(new \App\Mail\KeluhanAcknowledgementMail($user, $keluhan, 'user'));
+        \Mail::to($user->email)->send(new \App\Mail\KeluhanAcknowledgementMail($user, $keluhan, 'user'));
 
         // kirim keluhan ke admin
 
-        \Mail::to(env('MAIL_TUJUAN'))->send(new \App\Mail\KeluhanAcknowledgementMail($user, $keluhan, 'admin'));
+        \Mail::to(env('MAIL_ADMIN'))->send(new \App\Mail\KeluhanAcknowledgementMail($user, $keluhan, 'admin'));
     }
 }

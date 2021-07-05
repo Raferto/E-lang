@@ -21,10 +21,11 @@ class HomeController extends Controller
     {
         $this->SearchRepo = $SearchRepo;
     }
+
     public function index()
     {
         $barangs = Barang::getActiveBarang();
-        $kategoris = $this->SearchRepo->kategory();
+
         if (count($barangs) > 4) {
             $barangs_temp = [];
 
@@ -37,6 +38,5 @@ class HomeController extends Controller
 
         return view('home')
             ->with('barangs', $barangs);
-        // ->with('kategoris', $kategoris);
     }
 }

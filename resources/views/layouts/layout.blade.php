@@ -52,30 +52,29 @@ $kategoris = \App\Models\Kategori::getKategori();
                         @endif
                         @if(Auth::guard('admin')->check())
                         <li class="nav-item dropdown">
-                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Verifikasi Akun</a>
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Verifikasi</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                @if(Auth::guard("admin")->check())
-                                <li><a href="{{route('user-verification.index')}}" class="dropdown-item">Verifikasi</a></li>
-                                <li><a href="{{route('user-verification.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
-                                @endif
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Verifikasi Barang</a>
-                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                @if(Auth::guard("admin")->check())
-                                <li><a href="{{route('verif-barang.index')}}" class="dropdown-item">Verifikasi</a></li>
-                                <li><a href="{{route('verif-barang.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
-                                @endif
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Pembayaran</a>
-                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                @if(Auth::guard("admin")->check())
-                                <li><a href="{{route('klaim-admin.verifikasi')}}" class="dropdown-item">Verifikasi</a></li>
-                                <li><a href="{{route('klaim-admin.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
-                                @endif
+                                <li class="dropdown-submenu dropdown-hover">
+                                    <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Akun Pengguna</a>
+                                    <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                                        <li><a href="{{route('user-verification.index')}}" class="dropdown-item">Verifikasi</a></li>
+                                        <li><a href="{{route('user-verification.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu dropdown-hover">
+                                    <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Barang</a>
+                                    <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                                        <li><a href="{{route('verif-barang.index')}}" class="dropdown-item">Verifikasi</a></li>
+                                        <li><a href="{{route('verif-barang.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown-submenu dropdown-hover">
+                                    <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Pembayaran</a>
+                                    <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
+                                        <li><a href="{{route('klaim-admin.verifikasi')}}" class="dropdown-item">Verifikasi</a></li>
+                                        <li><a href="{{route('klaim-admin.log')}}" class="dropdown-item">Riwayat Verifikasi</a></li>
+                                    </ul>
+                                </li>
                             </ul>
                         </li>
                         @endif
