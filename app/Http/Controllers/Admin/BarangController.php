@@ -81,7 +81,7 @@ class BarangController extends Controller
 
         $to_email = $user->email;
         
-        $this->barangRepo->LogVerifikasiBarang($id, 'decline');
+        $this->barangRepo->LogVerifikasiBarang($id, 'declined');
 
         Mail::to($to_email)->send(new VerifBarang($user, $barang));
 

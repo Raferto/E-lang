@@ -16,7 +16,7 @@
 	<div class="row justify-content-center">
 		<div class="col-md-8">
 			@if( $pembayaran )
-				<h4 class="py-3" style="text-align: center">Silahkan Claim uang anda dengan menghubungi 081234567890</h4>
+				<h4 class="py-3" style="text-align: center">Silahkan klaim uang anda dengan menghubungi 081234567890</h4>
 			@endif
 
 

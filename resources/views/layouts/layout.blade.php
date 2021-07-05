@@ -120,7 +120,7 @@ $kategoris = \App\Models\Kategori::getKategori();
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="register" role="button">
+                        <a class="nav-link" href="{{route('register')}}" role="button">
                             <i class="fas fa-user-plus"></i>
                             Register
                         </a>
