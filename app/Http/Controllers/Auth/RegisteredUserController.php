@@ -35,40 +35,34 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'nomor_telpon' => 'required',
-                'alamat' => 'required',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                'photo' => 'required',
-            ]);
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'nomor_telpon' => 'required|unique:users',
+            'alamat' => 'required',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'photo' => 'required',
+        ]);
 
-            $photo = $request->file('photo');
-            $content = file_get_contents($photo->getRealPath());
-            $photo_ext = $photo->getClientOriginalExtension();
-            $file_name = ((string) Str::uuid()) . '.' . $photo_ext;
-            Storage::put('public/profile/' . $file_name, $content);
+        $photo = $request->file('photo');
+        $content = file_get_contents($photo->getRealPath());
+        $photo_ext = $photo->getClientOriginalExtension();
+        $file_name = ((string) Str::uuid()) . '.' . $photo_ext;
+        Storage::put('public/profile/' . $file_name, $content);
 
-            $user = User::create([
-                'nama' => $request->name,
-                'email' => $request->email,
-                'nomor_telpon' => $request->nomor_telpon,
-                'alamat' => $request->alamat,
-                'password' => Hash::make($request->password),
-                'photo' => asset('storage/profile/' . $file_name)
-            ]);
+        $user = User::create([
+            'nama' => $request->name,
+            'email' => $request->email,
+            'nomor_telpon' => $request->nomor_telpon,
+            'alamat' => $request->alamat,
+            'password' => Hash::make($request->password),
+            'photo' => asset('storage/profile/' . $file_name)
+        ]);
 
-            event(new Registered($user));
+        event(new Registered($user));
 
-            Auth::login($user);
+        Auth::login($user);
 
-            return redirect(RouteServiceProvider::HOME);
-        } catch (\Throwable $th) {
-            return redirect()
-            ->back()
-            ->with('exception', $th->getMessage());
-        }
+        return redirect(RouteServiceProvider::HOME);
     }
 }

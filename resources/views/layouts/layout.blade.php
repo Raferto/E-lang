@@ -20,7 +20,6 @@ $kategoris = \App\Models\Kategori::getKategori();
 
 <body class="hold-transition layout-top-nav">
     <div class="wrapper">
-
         <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
             <div class="container">
                 <a href="{{route('home')}}" class="navbar-brand">

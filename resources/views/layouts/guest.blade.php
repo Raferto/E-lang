@@ -22,5 +22,10 @@
         <div class="font-sans text-gray-900 antialiased">
             {{ $slot }}
         </div>
+        <script src="{{asset('template-admin-lte')}}/plugins/jquery/jquery.min.js"></script>
+        <!-- Bootstrap 4 -->
+        <script src="{{asset('template-admin-lte')}}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="{{asset('template-admin-lte')}}/dist/js/adminlte.min.js"></script>
     </body>
 </html>
