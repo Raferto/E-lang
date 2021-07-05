@@ -146,11 +146,13 @@ $kategoris = \App\Models\Kategori::getKategori();
                                     Status Verifikasi
                                 </a>
                             </li>
+                            @if(Auth::guard('web')->user())
                             <li>
                                 <a href="/keluhan" class="dropdown-item">
                                     Lapor Keluhan
                                 </a>
                             </li>
+                            @endif
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <li>
