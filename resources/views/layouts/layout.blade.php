@@ -141,11 +141,6 @@ $kategoris = \App\Models\Kategori::getKategori();
                                     Profil
                                 </a>
                             </li>
-                            <li>
-                                <a href="#" class="dropdown-item">
-                                    Status Verifikasi
-                                </a>
-                            </li>
                             @if(Auth::guard('web')->user())
                             <li>
                                 <a href="/keluhan" class="dropdown-item">
