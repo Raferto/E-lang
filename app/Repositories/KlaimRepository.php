@@ -40,6 +40,7 @@ class KlaimRepository implements KlaimRepositoryInterface
             ->join('penawaran_barang', 'barang.penawaran_id', '=', 'penawaran_barang.id')
             ->where('penawaran_barang.user_id', '=', $user_id_cari)
             ->where('barang.lelang_finished', '<', Carbon::now())
+            ->orderBy('penawaran_barang.created_at', 'DESC')
             ->paginate(5);
 
         // dd($penawaran_menang);

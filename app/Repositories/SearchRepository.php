@@ -26,6 +26,7 @@ class SearchRepository implements SearchRepositoryInterface
             ->where('lelang_start', '<', Carbon::now())
             ->where('lelang_finished', '>', Carbon::now())
             ->where('status', 'verified')
+            ->orderBy('barang.created_at', 'DESC')
             ->leftJoin('termasuk', 'barang.id', '=', 'termasuk.barang_id')
             ->leftJoin('kategori', 'kategori.id', '=', 'termasuk.barang_id')
             ->select('barang.*', 'kategori.nama as kategori')
@@ -62,6 +63,7 @@ class SearchRepository implements SearchRepositoryInterface
                 ->where('lelang_start', '<', Carbon::now())
                 ->where('lelang_finished', '>', Carbon::now())
                 ->where('status', 'verified')
+                ->orderBy('barang.created_at', 'DESC')
                 ->paginate(5);
         } else {
             $barangs = DB::table('barang')
@@ -73,6 +75,7 @@ class SearchRepository implements SearchRepositoryInterface
                 ->join('kategori', 'kategori.id', '=', 'termasuk.kategori_id')
                 ->whereIn('kategori.nama', $kategori)
                 ->select('barang.*', 'kategori.nama as kategori')
+                ->orderBy('barang.created_at', 'DESC')
                 ->paginate(5);
             
         }

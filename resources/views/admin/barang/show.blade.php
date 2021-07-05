@@ -57,6 +57,7 @@
 				<input type="datetime" name="lelang_finished" class="form-control" value="{{$barang->lelang_finished}}" readonly/>
 			</div>
 
+			@if ($barang->status == 'new')
 			<div class="row justify-content-center">
 				<div class="form-group">
 					<div  class="col-2 d-flex p-2 align-items-left">
@@ -73,6 +74,7 @@
 					</div>
 				</div>
 			</div>
+			@endif
 		</div>
 	</div>
 @endsection

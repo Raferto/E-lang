@@ -12,6 +12,7 @@ class BidRepository implements BidRepositoryInterface
 {
     public function getAll() {
         return PenawaranBarang::where('user_id', Auth::id())
+        ->orderBy('created_at', 'DESC')
         ->paginate(5);
     }
 

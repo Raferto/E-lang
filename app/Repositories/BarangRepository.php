@@ -20,6 +20,7 @@ class BarangRepository implements BarangRepositoryInterface
 
         $barang = DB::table('barang')
                     ->where('user_id', $user_id)
+                    ->orderBy('created_at', 'DESC')
                     ->paginate(5);
         return $barang;
     }
@@ -122,7 +123,9 @@ class BarangRepository implements BarangRepositoryInterface
     public function getLogVerifikasiBarang()
     {
 
-        return BarangLog::orderBy('created_at', 'desc')->paginate(15);
+        return BarangLog::join('barang', 'barang.id', '=','barang_log.barang_id')
+        ->select("barang_log.*", "barang.nama")
+        ->orderBy('created_at', 'desc')->paginate(15);
     }
 
 }

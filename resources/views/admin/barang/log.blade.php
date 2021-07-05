@@ -21,7 +21,7 @@
             @else
                 <table class="table table-hover table-sm">
                     <thead>
-                        <th scope="col">Id Barang</th>
+                        <th scope="col">Barang</th>
                         <th scope="col">Id Admin</th>
                         <th scope="col">Aksi</th>
                         <th scope="col">Tanggal</th>
@@ -29,7 +29,7 @@
                     <tbody>
                         @foreach ($logs as $item)
                         <tr>
-                            <td style="vertical-align: middle;">{{ $item->barang_id }}</td>
+                            <td style="vertical-align: middle;">{{ $item->nama }}</td>
                             <td style="vertical-align: middle;">{{ $item->admin_id }}</td>
                             <td style="vertical-align: middle;">
                                 @if ($item->aksi == 'verified')

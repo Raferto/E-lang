@@ -94,7 +94,7 @@
                     <div class="row">
                         <h3>Bukti Bayar</h3>
                         <div class="col-12">
-                            <img src="{{$qrcode}}" alt="QR Code" />
+                            {{$qrcode}}
                         </div>
                     </div>
                 </div>
