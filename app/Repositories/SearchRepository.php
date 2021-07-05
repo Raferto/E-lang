@@ -70,18 +70,11 @@ class SearchRepository implements SearchRepositoryInterface
                 ->where('lelang_finished', '>', Carbon::now())
                 ->where('status', 'verified')
                 ->join('termasuk', 'barang.id', '=', 'termasuk.barang_id')
-                ->join('kategori', 'kategori.id', '=', 'termasuk.barang_id')
-                ->whereExists(function ($query) {
-                    $query->select(DB::raw(1))
-                        ->from('termasuk')
-                        ->from('kategori')
-                        ->whereRaw('barang.id = termasuk.barang_id')
-                        ->whereRaw('kategori.id = termasuk.barang_id');
-                })
+                ->join('kategori', 'kategori.id', '=', 'termasuk.kategori_id')
                 ->whereIn('kategori.nama', $kategori)
                 ->select('barang.*', 'kategori.nama as kategori')
-                // ->wherein('kategori', $kategori)
                 ->paginate(5);
+            
         }
 
         // dd($barangs);

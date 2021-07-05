@@ -96,7 +96,7 @@ class BarangRepository implements BarangRepositoryInterface
             if($nama == "")
                 continue;
 
-            $kategori = Kategori::updateOrCreate( [ 'nama' => $nama]);
+            $kategori = Kategori::updateOrCreate( [ 'nama' => trim(ucfirst($nama))]);
             
             DB::table('termasuk')
                 ->insert([ 'barang_id'=> $barang_id, 'kategori_id' => $kategori->id]);
